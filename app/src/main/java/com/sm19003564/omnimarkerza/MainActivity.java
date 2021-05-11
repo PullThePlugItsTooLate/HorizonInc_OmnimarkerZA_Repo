@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         btnWeather = findViewById(R.id.btnMenuWeather);
         btnProfile = findViewById(R.id.btnMenuProfile);
 
-        btnLandmarks.setOnClickListener(new View.OnClickListener() {
+        btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, SettingsActivity.class);
