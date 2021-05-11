@@ -16,7 +16,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        switchSettings = findViewById(R.id.switchSettings);
+        switchSettings = findViewById(R.id.switch1);
 
         btnAbout = findViewById(R.id.btnAbout);
         btnHelp = findViewById(R.id.btnHelp);
