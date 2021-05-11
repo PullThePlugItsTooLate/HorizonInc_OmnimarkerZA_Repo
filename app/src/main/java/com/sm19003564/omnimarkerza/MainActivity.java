@@ -32,5 +32,30 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnCurrencyConverter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, CurrencyConverterActivity.class);
+                startActivity(i);
+            }
+        });
+
+        btnProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, ProfileActivity.class);
+                startActivity(i);
+            }
+        });
+
+        btnSafetyInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, SafetyInfoActivity.class);
+                startActivity(i);
+            }
+        });
+        
+
     }
 }
