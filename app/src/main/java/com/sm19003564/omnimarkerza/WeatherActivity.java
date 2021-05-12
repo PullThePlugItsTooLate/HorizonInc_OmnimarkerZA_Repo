@@ -26,6 +26,5 @@ public class WeatherActivity extends AppCompatActivity {
         tvCity4 = findViewById(R.id.tvCity4);
         tvCity5 = findViewById(R.id.tvCity5);
 
-
     }
 }
