@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "815424840498",
+    "project_id": "omnimarkerzabase",
+    "storage_bucket": "omnimarkerzabase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:815424840498:android:c2aed690ee0a6696fb2d2b",
+        "android_client_info": {
+          "package_name": "com.sm19003564.omnimarkerza"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "815424840498-u6qtp2501lv464m6laciabslgtq3upd2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBl8A9zusanOtmWCi-9Wrhbl1xsbsFItkw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "815424840498-u6qtp2501lv464m6laciabslgtq3upd2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
