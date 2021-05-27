@@ -14,16 +14,16 @@ What has been completed so far:
 
 •Application has been created and connected on Google Firebase.
 
+•Currency converter code added.
+
 
 Issues faced:
 
-None as yet
+•After adding implementations for currency converter I recieved error "Invoke-customs are only supported starting with Android O". This was then fixed (with the help of google) by "compileOptions" into the gradle. 
 
 
 Documented by : 
 
 •Rayhaan Nakooda - 12 May 2021 - 13:13
 
-
-
-
+•Zahraa Carrim - 28 May 2021 - 01:33
