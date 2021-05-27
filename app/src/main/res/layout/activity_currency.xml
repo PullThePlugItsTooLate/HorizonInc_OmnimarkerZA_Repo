@@ -60,6 +60,7 @@
         android:layout_width="130dp"
         android:layout_height="48dp"
         android:ems="10"
+        android:enabled="false"
         android:inputType="numberDecimal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -79,16 +80,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.392" />
 
-    <TextView
-        android:id="@+id/tvCurrencyResults"
-        android:layout_width="123dp"
-        android:layout_height="66dp"
-        android:text="test value"
-        android:textColor="#2196F3"
+    <Button
+        android:id="@+id/convertButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Convert"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.524"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.711" />
+        app:layout_constraintVertical_bias="0.752" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
