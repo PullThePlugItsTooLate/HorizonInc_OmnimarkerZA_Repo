@@ -55,12 +55,12 @@ public class CurrencyConverterActivity extends AppCompatActivity {
         convertButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (firstAmount.getText().toString().trim().length() <= 0) {
-                    Toast.makeText(getApplicationContext(), "Enter a valid amount", Toast.LENGTH_SHORT).show();
+                if ((firstAmount.getText().toString().trim().length() == 0) || ((Double.parseDouble(firstAmount.getText().toString())) <= 0)) {
+                    Toast.makeText(getApplicationContext(), "Please enter a valid amount.", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(spinnerFirstAmount.getSelectedItem().toString() == spinnerSecondAmount.getSelectedItem().toString()) {
-                    Toast.makeText(getApplicationContext(), "Choose 2 different currencies ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Please select 2 different currencies ", Toast.LENGTH_SHORT).show();
                     return;
                 }
 

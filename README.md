@@ -16,6 +16,8 @@ What has been completed so far:
 
 •Currency converter code added.
 
+•Safety Info functionality added.
+
 
 Issues faced:
 
@@ -27,3 +29,5 @@ Documented by :
 •Rayhaan Nakooda - 12 May 2021 - 13:13
 
 •Zahraa Carrim - 28 May 2021 - 01:33
+
+•Zahraa Carrim - 29 May 2021 - 14:52
