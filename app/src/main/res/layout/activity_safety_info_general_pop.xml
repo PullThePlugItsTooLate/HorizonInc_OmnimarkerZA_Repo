@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/pop_bg"
+    tools:context=".SafetyInfoGeneralPopActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="350dp"
+        android:layout_height="600dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Airport Safety:\n \n \u2022 Do not leave your luggage unattended.\n\u2022 Only ask for help and information from marked information stands.\n\u2022 Take notice of your surroundings and the marked emergency exits.\n\nAccommodation Safety: \n\n\u2022 Keep your room door locked at all times.\n\u2022 Never leave valuables unattended.\n\u2022 Do not open the door to unexpected visitors/staff.\n\nStreet Safety: \n\n\u2022 Do not carry large amounts of cash with you\n  \u2022 Walk in a group when possible\n \u2022 Be aware of your surroundings"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="General Safety Information"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.022" />
+</androidx.constraintlayout.widget.ConstraintLayout>
