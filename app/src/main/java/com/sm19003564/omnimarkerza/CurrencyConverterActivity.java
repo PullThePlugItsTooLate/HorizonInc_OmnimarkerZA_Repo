@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.sm19003564.omnimarkerza.Retrofit.RetrofitBuilder;
@@ -54,6 +55,15 @@ public class CurrencyConverterActivity extends AppCompatActivity {
         convertButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (firstAmount.getText().toString().trim().length() <= 0) {
+                    Toast.makeText(getApplicationContext(), "Enter a valid amount", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(spinnerFirstAmount.getSelectedItem().toString() == spinnerSecondAmount.getSelectedItem().toString()) {
+                    Toast.makeText(getApplicationContext(), "Choose 2 different currencies ", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 RetrofitInterface retrofitInterface = RetrofitBuilder.getRetrofitInstance().create(RetrofitInterface.class);
                 Call<JsonObject> call = retrofitInterface.getExchangeCurrency(spinnerFirstAmount.getSelectedItem().toString());
                 call.enqueue(new Callback<JsonObject>() {
