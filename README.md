@@ -22,6 +22,8 @@ What has been completed so far:
 
 •Added profile functionality 
 
+•Basic Location Permissions were added 
+
 
 Issues faced:
 
@@ -39,4 +41,6 @@ Documented by :
 •Rayhaan Nakooda - 1 June 2021 - 20:38
 
 •Zahraa Carrim - 2 June 2021 - 19:00
+
+•Rayhaan Nakooda - 2 June 2021 - 19:38
 
