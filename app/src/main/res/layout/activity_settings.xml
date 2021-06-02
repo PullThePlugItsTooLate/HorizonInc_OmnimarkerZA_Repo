@@ -6,17 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".SettingsActivity">
 
-    <Button
-        android:id="@+id/btnHelp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.578" />
+
 
     <ImageView
         android:id="@+id/ivSettingsIcon"
@@ -45,22 +35,55 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.241" />
 
-    <Switch
-        android:id="@+id/switch1"
-        android:layout_width="119dp"
-        android:layout_height="17dp"
-        android:checked="false"
-        android:showText="true"
-        android:splitTrack="true"
-        android:textOff="  "
-        android:trackTint="#FFFFFF"
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.366"
-        tools:checked="false" />
+        app:layout_constraintVertical_bias="0.45">
+
+        <RadioButton
+            android:id="@+id/rbMetric"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:checked="true"
+            android:text="Metric"
+            android:textSize="19dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.414" />
+
+        <RadioButton
+            android:id="@+id/rbImperial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Imperial"
+            android:textSize="19dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btnSaveChanges"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save Changes"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.688" />
 
     <Button
         android:id="@+id/btnAbout"
@@ -72,5 +95,17 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.481" />
+        app:layout_constraintVertical_bias="0.934" />
+
+    <Button
+        android:id="@+id/btnHelp"
+        android:layout_width="119dp"
+        android:layout_height="46dp"
+        android:text="Help"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.84" />
 </androidx.constraintlayout.widget.ConstraintLayout>
