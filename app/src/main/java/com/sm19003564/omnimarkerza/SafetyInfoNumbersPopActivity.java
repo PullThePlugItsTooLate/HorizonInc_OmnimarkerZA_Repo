@@ -21,15 +21,15 @@ import static android.content.Intent.ACTION_DIAL;
 import static android.provider.LiveFolders.INTENT;
 
 public class SafetyInfoNumbersPopActivity extends Activity {
-
+    //Declare
+    TextView number1, number2, number3;
+    String text1, text2, text3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_safety_info_numbers_pop);
 
-        TextView number1, number2, number3;
-        String text1, text2, text3;
-
+        //Initialize
         number1 = (TextView) findViewById(R.id.numbers1);
         number2 = (TextView) findViewById(R.id.numbers2);
         number3 = (TextView) findViewById(R.id.numbers3);
@@ -37,6 +37,7 @@ public class SafetyInfoNumbersPopActivity extends Activity {
         text2 = "Ambulance or Fire Department: 10177 ";
         text3 = "Any Emergency: 112 ";
 
+        //Edit Display Layout
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
@@ -51,11 +52,12 @@ public class SafetyInfoNumbersPopActivity extends Activity {
         params.y = -20;
         getWindow().setAttributes(params);
 
-
+        //add link to text
         SpannableString ss1 = new SpannableString(text1);
         ClickableSpan clickableSpan1 = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View widget) {
+                //open number in Phone App
                 Intent intent = new Intent(ACTION_DIAL);
                 intent.setData(Uri.parse("tel:10111"));
                 startActivity(intent);
@@ -63,11 +65,12 @@ public class SafetyInfoNumbersPopActivity extends Activity {
         };
         ss1.setSpan(clickableSpan1, 38, 43, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE );
 
-
+        //add link to text
         SpannableString ss2 = new SpannableString(text2);
         ClickableSpan clickableSpan2 = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View widget) {
+                //open number in Phone App
                 Intent intent = new Intent(ACTION_DIAL);
                 intent.setData(Uri.parse("tel:10177"));
                 startActivity(intent);
@@ -75,10 +78,12 @@ public class SafetyInfoNumbersPopActivity extends Activity {
         };
         ss2.setSpan(clickableSpan2, 30, 35, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE );
 
+        //add link to text
         SpannableString ss3 = new SpannableString(text3);
         ClickableSpan clickableSpan3 = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View widget) {
+                //open number in Phone App
                 Intent intent = new Intent(ACTION_DIAL);
                 intent.setData(Uri.parse("tel:112"));
                 startActivity(intent);
@@ -87,6 +92,7 @@ public class SafetyInfoNumbersPopActivity extends Activity {
         };
         ss3.setSpan(clickableSpan3, 15, 18, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE );
 
+        //set text with link to text views
         number1.setText(ss1);
         number1.setMovementMethod(LinkMovementMethod.getInstance());
         number2.setText(ss2);
