@@ -16,22 +16,9 @@ public class SafetyInfoGeneralPopActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_safety_info_general_pop);
-        TextView info = (TextView) findViewById(R.id.info);
-        String safetyInfo = "Airport Safety: \n" +
-                "\u2022 Do not leave your luggage unattended.\n" +
-                "\u2022 Only ask for help and information from marked information stands.\n" +
-                "\u2022 Take notice of your surroundings and the marked emergency exits.\n" +
-                "Accommodation Safety: \n" +
-                "\u2022 Keep your room door locked at all times.\n" +
-                "\u2022 Never leave valuables unattended.\n" +
-                "\u2022 Do not open the door to unexpected visitors/staff.\n" +
-                "Street Safety: \n" +
-                "\u2022 Do not carry large amounts of cash with you\n" +
-                "\u2022 Walk in a group when possible\n" +
-                "\u2022 Be aware of your surroundings";
 
 
-
+        //Edit layout
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 

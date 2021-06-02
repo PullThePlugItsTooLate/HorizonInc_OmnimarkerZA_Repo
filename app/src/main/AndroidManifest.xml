@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sm19003564.omnimarkerza">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -12,12 +11,17 @@
 
     <application
         android:allowBackup="true"
+        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".ProfileChangePasswordPopActivity"
+            android:theme="@style/AppTheme.PopMe"></activity>
+        <activity
+            android:name=".ProfileChangeUsernamePopActivity"
+            android:theme="@style/AppTheme.PopMe" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -28,8 +32,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value= "AIzaSyAUQQJD-YtJ-RCGhOTdypnA0QiqGHHsz_w" />
-
+            android:value="AIzaSyAUQQJD-YtJ-RCGhOTdypnA0QiqGHHsz_w" />
 
         <activity
             android:name=".SafetyInfoNumbersPopActivity"

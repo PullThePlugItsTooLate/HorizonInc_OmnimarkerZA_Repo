@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
                         if(task.isSuccessful())
                         {
 
-                            Toast.makeText(LoginActivity.this, "Login for " + mFirebaseAuth.getCurrentUser().getEmail() + "successful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Login for " + mFirebaseAuth.getCurrentUser().getEmail() + " successful", Toast.LENGTH_SHORT).show();
 
                             Intent i = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(i);

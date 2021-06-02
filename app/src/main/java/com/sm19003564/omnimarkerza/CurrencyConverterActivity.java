@@ -27,7 +27,7 @@ import retrofit2.Response;
 import static java.lang.Math.round;
 
 public class CurrencyConverterActivity extends AppCompatActivity {
-
+    //declare variables
     Spinner spinnerFirstAmount, spinnerSecondAmount;
     EditText firstAmount, secondAmount;
     Button convertButton;
@@ -51,20 +51,23 @@ public class CurrencyConverterActivity extends AppCompatActivity {
         spinnerFirstAmount.setAdapter(adapter);
         spinnerSecondAmount.setAdapter(adapter);
 
-
+        //on button clicked
         convertButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //check for empty text boxes and invalid amounts
                 if ((firstAmount.getText().toString().trim().length() == 0) || ((Double.parseDouble(firstAmount.getText().toString())) <= 0)) {
                     Toast.makeText(getApplicationContext(), "Please enter a valid amount.", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                //check for 2 different currencies
                 if(spinnerFirstAmount.getSelectedItem().toString() == spinnerSecondAmount.getSelectedItem().toString()) {
                     Toast.makeText(getApplicationContext(), "Please select 2 different currencies ", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 RetrofitInterface retrofitInterface = RetrofitBuilder.getRetrofitInstance().create(RetrofitInterface.class);
+                //get conversion rates using api
                 Call<JsonObject> call = retrofitInterface.getExchangeCurrency(spinnerFirstAmount.getSelectedItem().toString());
                 call.enqueue(new Callback<JsonObject>() {
                     @Override
@@ -72,9 +75,13 @@ public class CurrencyConverterActivity extends AppCompatActivity {
                         JsonObject res = response.body();
                         JsonObject rate = res.getAsJsonObject("conversion_rates");
                         double first = Double.valueOf(firstAmount.getText().toString());
+                        //get rate of second spinner
                         double multiplier = Double.valueOf(rate.get(spinnerSecondAmount.getSelectedItem().toString()).toString());
+                        //multiply
                         double result = first * multiplier;
+                        //format result
                         DecimalFormat df = new DecimalFormat("#.##");
+                        //display result
                         secondAmount.setText(String.valueOf(df.format(result)));
                     }
 

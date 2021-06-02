@@ -20,6 +20,8 @@ What has been completed so far:
 
 •Basic Map added 
 
+•Added profile functionality 
+
 
 Issues faced:
 
@@ -35,3 +37,6 @@ Documented by :
 •Zahraa Carrim - 29 May 2021 - 14:52
 
 •Rayhaan Nakooda - 1 June 2021 - 20:38
+
+•Zahraa Carrim - 2 June 2021 - 19:00
+
