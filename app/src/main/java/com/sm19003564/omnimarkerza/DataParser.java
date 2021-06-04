@@ -11,6 +11,26 @@ import java.util.HashMap;
 import java.util.List;
 
 public class DataParser {
+
+    private HashMap<String, String> getDuration(JSONArray googleDirectionJson){
+        HashMap<String, String> googleDirectionMap = new HashMap<>();
+        String duration = "";
+        String distance = "";
+
+        Log.d("getPlace", googleDirectionJson.toString());
+        try {
+            duration = googleDirectionJson.getJSONObject(0).getJSONObject("duration").getString("text");
+            distance = googleDirectionJson.getJSONObject(0).getJSONObject("distance").getString("text");
+
+            googleDirectionMap.put("duration", duration);
+            googleDirectionMap.put("distance", distance);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return googleDirectionMap;
+    }
+
     private HashMap<String, String> getPlace(JSONObject googlePlaceJson)
     {
         HashMap<String, String> googlePlaceMap = new HashMap<>();
@@ -83,5 +103,21 @@ public class DataParser {
         }
         return getPlaces(jsonArray);
     }
+
+    public HashMap<String, String> parseDirections(String jsonData)
+    {
+        JSONArray jsonArray = null;
+        JSONObject jsonObject;
+
+        try {
+            jsonObject = new JSONObject(jsonData);
+            jsonArray = jsonObject.getJSONArray("routes").getJSONObject(0).getJSONArray("legs");//legs array
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return getDuration(jsonArray);
+    }
+
 
 }
