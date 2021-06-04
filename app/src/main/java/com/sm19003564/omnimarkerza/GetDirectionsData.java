@@ -1,11 +1,15 @@
 package com.sm19003564.omnimarkerza;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.maps.android.PolyUtil;
+
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -36,13 +40,19 @@ public class GetDirectionsData extends AsyncTask<Object, String, String> {
 
     @Override
     protected void onPostExecute(String s){
-        HashMap<String, String> directionsList = null;
-        DataParser parser = new DataParser();
-        directionsList = parser.parseDirections(s);
-        duration = directionsList.get("duration");
-        distance = directionsList.get("distance");
 
         mMap.clear();
+        String[] directionsList;
+        HashMap<String,String> directionDetailList = null;
+        DataParser parser = new DataParser();
+        directionsList = parser.parseDirections(s);
+        directionDetailList = parser.parseDirectionDetail(s);
+        displayDirection(directionsList);
+
+        duration = directionDetailList.get("duration");
+        distance = directionDetailList.get("distance");
+
+
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
         markerOptions.draggable(true);
@@ -50,5 +60,18 @@ public class GetDirectionsData extends AsyncTask<Object, String, String> {
         markerOptions.snippet("Distance = "+ distance);
 
         mMap.addMarker(markerOptions);
+    }
+
+    public void displayDirection(String[] directionsList){
+        int count = directionsList.length;
+        for(int i = 0; i < count; i++){
+            PolylineOptions options = new PolylineOptions();
+            options.color(Color.CYAN);
+            options.width(10);
+            options.addAll(PolyUtil.decode(directionsList[i]));
+
+            mMap.addPolyline(options);
+
+        }
     }
 }
