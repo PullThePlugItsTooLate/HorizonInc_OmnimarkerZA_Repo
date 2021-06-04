@@ -52,18 +52,18 @@
                 android:text="Hospitals" />
 
             <Button
-                android:id="@+id/btnSchools"
+                android:id="@+id/btnStatues"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onClick"
-                android:text="Schools" />
+                android:text="Statues" />
 
             <Button
                 android:id="@+id/btnRestaurants"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onClick"
-                android:text="Restautants" />
+                android:text="Restaurants" />
 
             <Button
                 android:id="@+id/btnTo"
