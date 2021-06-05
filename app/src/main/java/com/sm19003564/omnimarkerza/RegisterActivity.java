@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.nio.file.Files;
+
 public class RegisterActivity extends AppCompatActivity {
 
     EditText emailId, passwordValue;
@@ -34,6 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         emailId = findViewById(R.id.etEmail);
         passwordValue = findViewById(R.id.etPassword);
+      //  confirmPasswordvalue = findViewById(R.id.et_confirmPassword);
         tvSignIn = findViewById(R.id.tvSignIn);
         btnSignUp = findViewById(R.id.btnSignUp);
 
@@ -43,6 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 email = emailId.getText().toString().trim();
                 password = passwordValue.getText().toString().trim();
+                //confirmPassword = confirmPasswordvalue.getText().toString().trim();
 
                 mFirebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -55,6 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+
                         Toast.makeText(RegisterActivity.this, "User Registration Failed", Toast.LENGTH_SHORT).show();
                     }
                 });
