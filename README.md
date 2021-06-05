@@ -25,6 +25,7 @@ Thank you <3
 
 •Basic Location Permissions were added 
 
+•UI Design for most screens has been completed 
 
 
 <b>Issues faced:</b>
@@ -36,6 +37,8 @@ Thank you <3
 <b>Aspects to fix:</b>
 
 •Upon user signup the app unfortunately does not take the user directly into the app but instead the user is forced to login first. There should also be a 'forgot password' feature so that the user has the ability to change their password via email.
+
+•Upon opening the map, the map always directly zooms to the middle of the ocean, forcing users to zoom out and find go to their location, this breaks user experience
 
 
 
@@ -52,3 +55,5 @@ Thank you <3
 •Zahraa Carrim - 2 June 2021 - 19:00
 
 •Rayhaan Nakooda - 2 June 2021 - 19:38
+
+•Rayhaan Nakooda - 6 June 2021 - 00:27
