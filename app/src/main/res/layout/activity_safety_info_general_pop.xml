@@ -11,25 +11,31 @@
         android:id="@+id/textView"
         android:layout_width="350dp"
         android:layout_height="600dp"
+        android:fontFamily="@font/montserrat"
         android:gravity="center_horizontal|center_vertical"
         android:text="Airport Safety:\n \n \u2022 Do not leave your luggage unattended.\n\u2022 Only ask for help and information from marked information stands.\n\u2022 Take notice of your surroundings and the marked emergency exits.\n\nAccommodation Safety: \n\n\u2022 Keep your room door locked at all times.\n\u2022 Never leave valuables unattended.\n\u2022 Do not open the door to unexpected visitors/staff.\n\nStreet Safety: \n\n\u2022 Do not carry large amounts of cash with you\n  \u2022 Walk in a group when possible\n \u2022 Be aware of your surroundings"
+        android:textColor="#333333"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.496" />
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="339dp"
+        android:layout_height="52dp"
+        android:fontFamily="@font/montserrat_bold"
         android:gravity="center_vertical"
         android:text="General Safety Information"
+        android:textColor="#333333"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.569"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022" />
+        app:layout_constraintVertical_bias="0.047" />
 </androidx.constraintlayout.widget.ConstraintLayout>

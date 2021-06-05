@@ -4,55 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/pop_bg"
     tools:context=".SafetyInfoActivity">
 
     <Button
         android:id="@+id/btnImportantPhoneNumber"
-        android:layout_width="159dp"
-        android:layout_height="66dp"
+        android:layout_width="250dp"
+        android:layout_height="45dp"
+        android:background="@drawable/custom_button"
+        android:fontFamily="@font/montserrat_bold"
         android:text="Important Phone Numbers"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.569" />
+        app:layout_constraintVertical_bias="0.681" />
 
     <ImageView
         android:id="@+id/ivSafetyInfoIcon"
-        android:layout_width="110dp"
-        android:layout_height="115dp"
+        android:layout_width="185dp"
+        android:layout_height="150dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.056"
+        app:layout_constraintVertical_bias="0.065"
         app:srcCompat="@drawable/safetyicon" />
 
     <TextView
         android:id="@+id/tvSafetyInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="serif"
-        android:text="SAFETY INFO"
-        android:textColor="#0E62B6"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="SAFETY INFORMATION"
+        android:textColor="#333333"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.251" />
-
-    <Button
-        android:id="@+id/btnGeneralInfo"
-        android:layout_width="157dp"
-        android:layout_height="66dp"
-        android:text="General Info"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.427" />
+        app:layout_constraintVertical_bias="0.316" />
+
+    <Button
+        android:id="@+id/btnGeneralInfo"
+        android:layout_width="250dp"
+        android:layout_height="45dp"
+        android:background="@drawable/custom_button"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="General Safety Info"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.55" />
 </androidx.constraintlayout.widget.ConstraintLayout>

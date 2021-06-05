@@ -45,13 +45,15 @@
 
     <EditText
         android:id="@+id/etFirstAmount"
-        android:layout_width="130dp"
+        android:layout_width="180dp"
         android:layout_height="48dp"
         android:ems="10"
+        android:fontFamily="@font/montserrat"
         android:hint="Amount to convert"
         android:inputType="numberDecimal"
         android:textColor="#333333"
-        android:textSize="20sp"
+
+        android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.167"
@@ -72,12 +74,12 @@
 
     <Button
         android:id="@+id/convertButton"
-        android:layout_width="121dp"
-        android:layout_height="50dp"
-        android:background="#151515"
+        android:layout_width="140dp"
+        android:layout_height="40dp"
+        android:background="@drawable/custom_button"
         android:fontFamily="@font/montserrat_bold"
         android:text="Convert"
-        android:textColor="#48BF91"
+        android:textColor="#333333"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -87,9 +89,10 @@
     <TextView
         android:id="@+id/etSecondAmount"
         android:layout_width="130dp"
-        android:layout_height="48dp"
+        android:layout_height="30dp"
+        android:fontFamily="@font/montserrat"
         android:hint="Result"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textColor="#333333"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"

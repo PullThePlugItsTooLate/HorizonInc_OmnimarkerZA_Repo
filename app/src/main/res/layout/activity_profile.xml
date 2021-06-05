@@ -4,36 +4,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/pop_bg"
     tools:context=".ProfileActivity">
 
     <Button
         android:id="@+id/btnChangePassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="167dp"
+        android:layout_height="40dp"
+        android:background="@drawable/custom_button"
+        android:fontFamily="@font/montserrat_bold"
         android:text="Change Password"
+        android:textColor="#333333"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.516" />
+        app:layout_constraintVertical_bias="0.642" />
 
     <Button
         android:id="@+id/btnChangeEmail"
-        android:layout_width="158dp"
-        android:layout_height="48dp"
+        android:layout_width="166dp"
+        android:layout_height="40dp"
+        android:background="@drawable/custom_button"
+        android:fontFamily="@font/montserrat_bold"
         android:text="Change Email"
+
+        android:textColor="#333333"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.398" />
+        app:layout_constraintVertical_bias="0.538" />
 
     <ImageView
         android:id="@+id/ivProfileIcon"
-        android:layout_width="107dp"
-        android:layout_height="108dp"
+        android:layout_width="190dp"
+        android:layout_height="155dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,28 +51,30 @@
 
     <TextView
         android:id="@+id/tvProfile"
-        android:layout_width="130dp"
+        android:layout_width="140dp"
         android:layout_height="36dp"
-        android:fontFamily="serif"
+        android:fontFamily="@font/montserrat_bold"
         android:text="PROFILE"
-        android:textColor="#0E62B6"
+        android:textColor="#333333"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.227" />
+        app:layout_constraintVertical_bias="0.293" />
 
     <Button
         android:id="@+id/btnLogout"
-        android:layout_width="155dp"
-        android:layout_height="45dp"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:background="@drawable/custom_button"
+        android:fontFamily="@font/montserrat_bold"
         android:text="Log Out"
+        android:textColor="#333333"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.634" />
+        app:layout_constraintVertical_bias="0.935" />
 </androidx.constraintlayout.widget.ConstraintLayout>
