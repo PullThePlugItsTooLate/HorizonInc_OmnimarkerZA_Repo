@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,9 +18,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.nio.file.Files;
+
 public class MainActivity extends AppCompatActivity {
 
     Button btnLandmarks, btnFavourites, btnSettings, btnSafetyInfo, btnCurrencyConverter, btnWeather, btnProfile;
+    ImageView iv_CurrencyConverter, iv_Profile, iv_Settings, iv_SafetyInformation, iv_Maps, iv_Favourites;
     TextView tvMeasure;
     Settings settings;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -31,13 +35,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnLandmarks = findViewById(R.id.btnMenuLandmarks);
-        btnFavourites = findViewById(R.id.btnMenuFavourite);
-        btnSettings = findViewById(R.id.btnMenuSettings);
-        btnSafetyInfo = findViewById(R.id.btnMenuSafetyInfo);
-        btnCurrencyConverter = findViewById(R.id.btnMenuCurrency);
-        btnWeather = findViewById(R.id.btnMenuWeather);
-        btnProfile = findViewById(R.id.btnMenuProfile);
+       // btnLandmarks = findViewById(R.id.btnMenuLandmarks);
+       // btnFavourites = findViewById(R.id.btnMenuFavourite);
+       // btnSettings = findViewById(R.id.btnMenuSettings);
+        //btnSafetyInfo = findViewById(R.id.btnMenuSafetyInfo);
+        //btnCurrencyConverter = findViewById(R.id.btnMenuCurrency);
+//        btnWeather = findViewById(R.id.btnMenuWeather);
+        //btnProfile = findViewById(R.id.btnMenuProfile);
+
+        iv_CurrencyConverter = findViewById(R.id.iv_CurrencyConverter);
+        iv_Profile = findViewById(R.id.iv_Profile);
+        iv_Settings = findViewById(R.id.iv_Settings);
+        iv_SafetyInformation = findViewById(R.id.iv_SafetyInformation);
+        iv_Maps = findViewById(R.id.iv_Maps);
+        iv_Favourites = findViewById(R.id.iv_Favourites);
+
         tvMeasure = findViewById(R.id.tvMeasure);
         settings = new Settings();
 
@@ -63,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnSettings.setOnClickListener(new View.OnClickListener() {
+        iv_Settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, SettingsActivity.class);
@@ -71,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnCurrencyConverter.setOnClickListener(new View.OnClickListener() {
+        iv_CurrencyConverter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, CurrencyConverterActivity.class);
@@ -79,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnProfile.setOnClickListener(new View.OnClickListener() {
+        iv_Profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, ProfileActivity.class);
@@ -87,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnSafetyInfo.setOnClickListener(new View.OnClickListener() {
+        iv_SafetyInformation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, SafetyInfoActivity.class);
@@ -95,18 +107,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnWeather.setOnClickListener(new View.OnClickListener() {
+
+
+        iv_Maps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, WeatherActivity.class);
+                Intent i = new Intent(MainActivity.this, MapsActivity.class);
                 startActivity(i);
             }
         });
 
-        btnLandmarks.setOnClickListener(new View.OnClickListener() {
+        iv_Favourites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, MapsActivity.class);
+                Intent i = new Intent(MainActivity.this, FavouritesActivity.class);
                 startActivity(i);
             }
         });
