@@ -29,7 +29,8 @@ import static java.lang.Math.round;
 public class CurrencyConverterActivity extends AppCompatActivity {
     //declare variables
     Spinner spinnerFirstAmount, spinnerSecondAmount;
-    EditText firstAmount, secondAmount;
+    EditText firstAmount;
+    TextView secondAmount;
     Button convertButton;
 
     @Override

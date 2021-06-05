@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CurrencyConverterActivity">
+    tools:context=".CurrencyConverterActivity"
+    android:background="@drawable/pop_bg">
 
     <Spinner
         android:id="@+id/spinnerSecondAmount"
@@ -15,12 +16,12 @@
         app:layout_constraintHorizontal_bias="0.817"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.531" />
+        app:layout_constraintVertical_bias="0.613" />
 
     <ImageView
         android:id="@+id/ivCurrencyIcon"
-        android:layout_width="109dp"
-        android:layout_height="115dp"
+        android:layout_width="182dp"
+        android:layout_height="155dp"
         android:src="@drawable/currencyicon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,42 +33,31 @@
         android:id="@+id/tvCurrencyConverter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="serif"
+        android:fontFamily="@font/montserrat_bold"
         android:text="CURRENCY CONVERTER"
-        android:textColor="#0E62B6"
+        android:textColor="#333333"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.248" />
+        app:layout_constraintVertical_bias="0.329" />
 
     <EditText
         android:id="@+id/etFirstAmount"
         android:layout_width="130dp"
         android:layout_height="48dp"
         android:ems="10"
+        android:hint="Amount to convert"
         android:inputType="numberDecimal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.166"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.392" />
-
-    <EditText
-        android:id="@+id/etSecondAmount"
-        android:layout_width="130dp"
-        android:layout_height="48dp"
-        android:ems="10"
-        android:enabled="false"
-        android:inputType="numberDecimal"
+        android:textColor="#333333"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.167"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.532" />
+        app:layout_constraintVertical_bias="0.484" />
 
     <Spinner
         android:id="@+id/spinnerFirstAmount"
@@ -78,18 +68,35 @@
         app:layout_constraintHorizontal_bias="0.817"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.392" />
+        app:layout_constraintVertical_bias="0.484" />
 
     <Button
         android:id="@+id/convertButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="121dp"
+        android:layout_height="50dp"
+        android:background="#151515"
+        android:fontFamily="@font/montserrat_bold"
         android:text="Convert"
+        android:textColor="#48BF91"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.752" />
+        app:layout_constraintVertical_bias="0.801" />
+
+    <TextView
+        android:id="@+id/etSecondAmount"
+        android:layout_width="130dp"
+        android:layout_height="48dp"
+        android:hint="Result"
+        android:textAlignment="center"
+        android:textColor="#333333"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.167"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.613" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
