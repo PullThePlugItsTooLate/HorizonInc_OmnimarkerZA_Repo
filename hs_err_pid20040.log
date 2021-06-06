@@ -1,0 +1,125 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (malloc) failed to allocate 368656 bytes for Chunk::new
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Unscaled Compressed Oops mode in which the Java heap is
+#     placed in the first 4GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 4GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (allocation.cpp:389), pid=20040, tid=0x0000000000004980
+#
+# JRE version:  (8.0_242-b01) (build )
+# Java VM: OpenJDK 64-Bit Server VM (25.242-b01 mixed mode windows-amd64 compressed oops)
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00000000024c3000):  JavaThread "Unknown thread" [_thread_in_vm, id=18816, stack(0x00000000023c0000,0x00000000024c0000)]
+
+Stack: [0x00000000023c0000,0x00000000024c0000]
+[error occurred during error reporting (printing stack bounds), id 0xc0000005]
+
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+
+Other Threads:
+
+=>0x00000000024c3000 (exited) JavaThread "Unknown thread" [_thread_in_vm, id=18816, stack(0x00000000023c0000,0x00000000024c0000)]
+
+VM state:not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+heap address: 0x0000000082600000, size: 2010 MB, Compressed Oops mode: 32-bit
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 3
+Compressed class space size: 1073741824 Address: 0x0000000100000000
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+Events (0 events):
+No events
+
+
+Dynamic libraries:
+0x00007ff666360000 - 0x00007ff666391000 	G:\Program Files\Android\Android Studio\jre\jre\bin\java.exe
+0x00007ff960af0000 - 0x00007ff960ce5000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x00007ff95ecf0000 - 0x00007ff95edad000 	C:\WINDOWS\System32\KERNEL32.DLL
+0x00007ff95e3c0000 - 0x00007ff95e688000 	C:\WINDOWS\System32\KERNELBASE.dll
+0x00007ff9600c0000 - 0x00007ff96016c000 	C:\WINDOWS\System32\ADVAPI32.dll
+0x00007ff95f210000 - 0x00007ff95f2ae000 	C:\WINDOWS\System32\msvcrt.dll
+0x00007ff95edb0000 - 0x00007ff95ee4b000 	C:\WINDOWS\System32\sechost.dll
+0x00007ff95fa60000 - 0x00007ff95fb8b000 	C:\WINDOWS\System32\RPCRT4.dll
+0x00007ff960230000 - 0x00007ff9603d0000 	C:\WINDOWS\System32\USER32.dll
+0x00007ff95e9c0000 - 0x00007ff95e9e2000 	C:\WINDOWS\System32\win32u.dll
+0x00007ff95f1b0000 - 0x00007ff95f1da000 	C:\WINDOWS\System32\GDI32.dll
+0x00007ff95e730000 - 0x00007ff95e83b000 	C:\WINDOWS\System32\gdi32full.dll
+0x00007ff95e690000 - 0x00007ff95e72d000 	C:\WINDOWS\System32\msvcp_win.dll
+0x00007ff95e870000 - 0x00007ff95e970000 	C:\WINDOWS\System32\ucrtbase.dll
+0x00007ff94c5f0000 - 0x00007ff94c88a000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.844_none_ca00b6081b84eb1d\COMCTL32.dll
+0x00007ff95f1e0000 - 0x00007ff95f210000 	C:\WINDOWS\System32\IMM32.DLL
+0x000000005b7d0000 - 0x000000005b8a2000 	G:\Program Files\Android\Android Studio\jre\jre\bin\msvcr100.dll
+0x000000005ae00000 - 0x000000005b64b000 	G:\Program Files\Android\Android Studio\jre\jre\bin\server\jvm.dll
+0x00007ff960630000 - 0x00007ff960638000 	C:\WINDOWS\System32\PSAPI.DLL
+0x00007ff9571f0000 - 0x00007ff9571fa000 	C:\WINDOWS\SYSTEM32\VERSION.dll
+0x00007ff94cdd0000 - 0x00007ff94cdf7000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x00007ff948f40000 - 0x00007ff948f49000 	C:\WINDOWS\SYSTEM32\WSOCK32.dll
+0x00007ff95ec80000 - 0x00007ff95eceb000 	C:\WINDOWS\System32\WS2_32.dll
+0x00007ff959cf0000 - 0x00007ff959cff000 	G:\Program Files\Android\Android Studio\jre\jre\bin\verify.dll
+0x00007ff9436a0000 - 0x00007ff9436c9000 	G:\Program Files\Android\Android Studio\jre\jre\bin\java.dll
+0x00007ff943c70000 - 0x00007ff943c86000 	G:\Program Files\Android\Android Studio\jre\jre\bin\zip.dll
+
+VM Arguments:
+java_command: org.jetbrains.git4idea.http.GitAskPassApp Username for 'https://github.com': 
+java_class_path (initial): G:/Program Files/Android/Android Studio/plugins/git4idea/lib/git4idea-rt.jar;G:/Program Files/Android/Android Studio/lib/xmlrpc-2.0.1.jar;G:/Program Files/Android/Android Studio/lib/commons-codec-1.13.jar;G:/Program Files/Android/Android Studio/lib/util.jar
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=G:\Program Files\Git\mingw64\libexec\git-core;G:\Program Files\Git\mingw64\libexec\git-core;G:\Program Files\Git\mingw64\bin;G:\Program Files\Git\usr\bin;C:\Users\S. Moodliar\bin;G:\App\db_home\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Intel\WiFi\bin;C:\Program Files\Common Files\Intel\WirelessCommon;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files (x86)\Microsoft SQL Server\110\Tools\Binn;C:\Program Files\Microsoft SQL Server\110\Tools\Binn;C:\Program Files\Microsoft SQL Server\110\DTS\Binn;C:\Program Files (x86)\Microsoft SQL Server\110\Tools\Binn\ManagementStudio;C:\Program Files (x86)\Microsoft SQL Server\110\DTS\Binn;C:\Program Files\Microsoft SQL Server\130\Tools\Binn;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn;C:\Program Files\dotnet;G:\Program Files\Git\cmd;C:\Program Files\nodejs;C:\Users\S. Moodliar\AppData\Local\Microsoft\WindowsApps;C:\Users\S. Moodliar\.dotnet\tools;D:\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\S. Moodliar\AppData\Roaming\npm
+USERNAME=S. Moodliar
+DISPLAY=:0.0
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 158 Stepping 10, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 10.0 , 64 bit Build 19041 (10.0.19041.928)
+
+CPU:total 12 (initial active 12) (6 cores per cpu, 2 threads per core) family 6 model 158 stepping 10, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, erms, 3dnowpref, lzcnt, ht, tsc, tscinvbit, bmi1, bmi2, adx
+
+Memory: 4k page, physical 8231072k(1258960k free), swap 23236208k(10508k free)
+
+vm_info: OpenJDK 64-Bit Server VM (25.242-b01) for windows-amd64 JRE (1.8.0_242-release-1644-b01), built by "builder" with MS VC++ 10.0 (VS2010)
+
+time: Sun Jun 06 15:25:25 2021
+timezone: Egypt Standard Time
+elapsed time: 0 seconds (0d 0h 0m 0s)
+

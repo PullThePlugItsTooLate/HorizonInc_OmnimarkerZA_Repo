@@ -30,10 +30,15 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.GeoDataClient;
-import com.google.android.gms.location.places.PlaceDetectionClient;
+import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
+import com.google.android.gms.location.places.PlaceDetectionClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+
+import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -239,13 +244,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Toast.makeText(MapsActivity.this, "Showing Nearby Restaurants", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btnTo:
-                dataTransfer = new Object[3];
-                url = getDirectionsUrl();
-                GetDirectionsData getDirectionsData = new GetDirectionsData();
-                dataTransfer[0] = mMap;
-                dataTransfer[1] = url;
-                dataTransfer[2] = new LatLng(end_latitude, end_longitude);
-                getDirectionsData.execute(dataTransfer);
+                try{
+                    dataTransfer = new Object[3];
+                    url = getDirectionsUrl();
+                    GetDirectionsData getDirectionsData = new GetDirectionsData();
+                    dataTransfer[0] = mMap;
+                    dataTransfer[1] = url;
+                    dataTransfer[2] = new LatLng(end_latitude, end_longitude);
+                    getDirectionsData.execute(dataTransfer);
+                }catch(Exception e){
+                    Toast.makeText(MapsActivity.this, "Please tap and hold a marker and then drag it", Toast.LENGTH_LONG).show();
+                }
+
                 break;
         }
     }
@@ -429,4 +439,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         end_latitude = marker.getPosition().latitude;
         end_longitude = marker.getPosition().longitude;
     }
+
+
+
 }
