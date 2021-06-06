@@ -69,7 +69,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Marker currentLocationmMarker;
     int PROXIMITY_RADIUS = 10000;
     double latitude, longitude;
-    double end_latitude, end_longitude;
+    double end_latitude = 0, end_longitude = 0;
 
     //widgets
     private AutoCompleteTextView mSearchText;
@@ -250,10 +250,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     GetDirectionsData getDirectionsData = new GetDirectionsData();
                     dataTransfer[0] = mMap;
                     dataTransfer[1] = url;
-                    dataTransfer[2] = new LatLng(end_latitude, end_longitude);
-                    getDirectionsData.execute(dataTransfer);
+                    if (end_latitude != 0 && end_longitude != 0){
+                        dataTransfer[2] = new LatLng(end_latitude, end_longitude);
+                        getDirectionsData.execute(dataTransfer);
+                    }
+                    else{
+                        Toast.makeText(MapsActivity.this, "Please tap a marker first", Toast.LENGTH_LONG).show();
+                    }
+
+
                 }catch(Exception e){
-                    Toast.makeText(MapsActivity.this, "Please tap and hold a marker and then drag it", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MapsActivity.this, "Please tap a marker first", Toast.LENGTH_LONG).show();
                 }
 
                 break;
@@ -263,9 +270,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private String getDirectionsUrl()
     {
         StringBuilder googleDirectionUrl = new StringBuilder("https://maps.googleapis.com/maps/api/directions/json?");
-        googleDirectionUrl.append("origin="+latitude+","+longitude);
-        googleDirectionUrl.append("&destination="+end_latitude+","+end_longitude);
-        googleDirectionUrl.append("&key="+"AIzaSyAaWsbwDvVA7Z8gtBZR7oJl8ASqNCnAkqU");
+        try {
+
+            googleDirectionUrl.append("origin="+latitude+","+longitude);
+            googleDirectionUrl.append("&destination="+end_latitude+","+end_longitude);
+            googleDirectionUrl.append("&key="+"AIzaSyAaWsbwDvVA7Z8gtBZR7oJl8ASqNCnAkqU");
+            return googleDirectionUrl.toString();
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(MapsActivity.this, "Please tap a marker first", Toast.LENGTH_LONG).show();
+
+        }
 
         return googleDirectionUrl.toString();
     }
@@ -421,6 +437,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public boolean onMarkerClick(Marker marker) {
         marker.setDraggable(true);
+        end_latitude = marker.getPosition().latitude;
+        end_longitude = marker.getPosition().longitude;
         return false;
     }
 
