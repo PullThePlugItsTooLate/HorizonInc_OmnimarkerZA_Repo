@@ -1,7 +1,5 @@
 # HorizonInc_OmnimarkerZA_Repo
 <b>OPSC-Task 2 loading...</b>
-pk.eyJ1Ijoic3V2YXNoaW4iLCJhIjoiY2twbGhrbzkxMDVscjJvbXVxNm9vNHk1diJ9._kklcq_wJylcPalomR3CNg
-sk.eyJ1Ijoic3V2YXNoaW4iLCJhIjoiY2twbTkzaWdmMDA4ZzJubnZlczNrNWZ4ZSJ9.sQ86XeJppY1slbsgFOROWA
 
 This readme is created for <b>anyone</b> working on the repo. 
 Whenever work on the code is done , please document your changes here as well as any issues you have faced.
