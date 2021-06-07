@@ -4,10 +4,18 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.maps.android.PolyUtil;
 
 
@@ -20,6 +28,7 @@ public class GetDirectionsData extends AsyncTask<Object, String, String> {
     private String googleDirectionsData;
     private GoogleMap mMap;
     String url, duration, distance;
+
     LatLng latLng;
 
     @Override
@@ -41,9 +50,13 @@ public class GetDirectionsData extends AsyncTask<Object, String, String> {
     @Override
     protected void onPostExecute(String s){
 
+
+
+
+
         mMap.clear();
         String[] directionsList;
-        HashMap<String,String> directionDetailList = null;
+        HashMap<String, String> directionDetailList = null;
         DataParser parser = new DataParser();
         directionsList = parser.parseDirections(s);
         directionDetailList = parser.parseDirectionDetail(s);
@@ -53,11 +66,18 @@ public class GetDirectionsData extends AsyncTask<Object, String, String> {
         distance = directionDetailList.get("distance");
 
 
+
+
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
         markerOptions.draggable(true);
         markerOptions.title("Duration = "+ duration);
         markerOptions.snippet("Distance = "+ distance);
+
+
+
+   
+
 
         mMap.addMarker(markerOptions);
     }
