@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
@@ -20,13 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".FavouritesActivity"></activity>
-        <activity
-            android:name=".ProfileChangePasswordPopActivity"
-            android:theme="@style/AppTheme.PopMe" />
-        <activity
-            android:name=".ProfileChangeUsernamePopActivity"
-            android:theme="@style/AppTheme.PopMe" />
+        <activity android:name=".MapboxActivity"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -37,7 +32,16 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAUQQJD-YtJ-RCGhOTdypnA0QiqGHHsz_w" />
+            android:value="@string/google_maps_key" />
+
+        <activity android:name=".FavouritesActivity" />
+        <activity
+            android:name=".ProfileChangePasswordPopActivity"
+            android:theme="@style/AppTheme.PopMe" />
+        <activity
+            android:name=".ProfileChangeUsernamePopActivity"
+            android:theme="@style/AppTheme.PopMe" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

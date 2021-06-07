@@ -78,6 +78,7 @@ public class SettingsActivity extends AppCompatActivity {
                 }
 
                 settingsRef.child("SettingsData").push().setValue(settings);
+                Toast.makeText(SettingsActivity.this, "Your settings have been saved", Toast.LENGTH_SHORT).show();
             }
         });
     }
