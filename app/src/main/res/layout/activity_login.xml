@@ -16,6 +16,7 @@
         android:drawableStart="@drawable/ic_email"
         android:drawablePadding="12dp"
         android:ems="10"
+
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:paddingStart="12dp"
@@ -63,15 +64,14 @@
 
     <ImageView
         android:id="@+id/ivLoginIcon"
-        android:layout_width="154dp"
-        android:layout_height="116dp"
+        android:layout_width="177dp"
+        android:layout_height="140dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.11"
-        app:srcCompat="@drawable/locationicon" />
+        app:layout_constraintVertical_bias="0.057"
+        app:srcCompat="@drawable/appicon" />
 
     <TextView
         android:id="@+id/tvSignUp"
@@ -99,6 +99,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.813" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="247dp"
+        android:layout_height="49dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:shadowColor="#000000"
+        android:shadowDx="5"
+        android:shadowDy="4"
+        android:shadowRadius="5"
+        android:text="OmnimarkerZA"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.268" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

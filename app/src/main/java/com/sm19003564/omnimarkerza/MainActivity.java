@@ -23,7 +23,7 @@ import java.nio.file.Files;
 public class MainActivity extends AppCompatActivity {
 
     Button btnLandmarks, btnFavourites, btnSettings, btnSafetyInfo, btnCurrencyConverter, btnWeather, btnProfile, btnMapBox;
-    ImageView iv_CurrencyConverter, iv_Profile, iv_Settings, iv_SafetyInformation, iv_Maps, iv_Favourites;
+    ImageView iv_CurrencyConverter, iv_Profile, iv_Settings, iv_SafetyInformation, iv_Maps, iv_Favourites, iv_Landmarks;
     TextView tvMeasure;
     Settings settings;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -49,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
         iv_SafetyInformation = findViewById(R.id.iv_SafetyInformation);
         iv_Maps = findViewById(R.id.iv_Maps);
         iv_Favourites = findViewById(R.id.iv_Favourites);
-        btnMapBox = findViewById(R.id.btnMapBox);
+        iv_Landmarks = findViewById(R.id.iv_Landmarks);
+       // btnMapBox = findViewById(R.id.btnMapBox);
 
         tvMeasure = findViewById(R.id.tvMeasure);
         settings = new Settings();
@@ -76,10 +77,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnMapBox.setOnClickListener(new View.OnClickListener() {
+        iv_Landmarks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, MapboxActivity.class);
+                Intent i = new Intent(MainActivity.this, MapsActivity.class);
                 startActivity(i);
             }
         });
@@ -121,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         iv_Maps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, MapsActivity.class);
+                Intent i = new Intent(MainActivity.this, MapboxActivity.class);
                 startActivity(i);
             }
         });
