@@ -231,15 +231,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         switch(v.getId())
         {
 
-            case R.id.btnHospitals:
+            case R.id.btnMuseums:
                 mMap.clear();
-                String hospital = "hospital";
-                String url = getUrl(latitude, longitude, hospital);
+                String museums = "Museum";
+                String url = getUrl(latitude, longitude, museums);
                 dataTransfer[0] = mMap;
                 dataTransfer[1] = url;
 
                 getNearbyPlacesData.execute(dataTransfer);
-                Toast.makeText(MapsActivity.this, "Showing Nearby Hospitals", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MapsActivity.this, "Showing Nearby Museums", Toast.LENGTH_SHORT).show();
                 break;
 
 

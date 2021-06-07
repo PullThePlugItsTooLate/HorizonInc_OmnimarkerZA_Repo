@@ -48,7 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="63dp"
+        android:layout_marginTop="68dp"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp">
 
@@ -58,45 +58,58 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <Button
-                android:id="@+id/btnHospitals"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/btnMuseums"
+                android:layout_width="100dp"
+                android:layout_marginLeft="4dp"
+                android:layout_height="27dp"
+                android:background="@drawable/custom_button"
+                android:fontFamily="@font/montserrat_bold"
                 android:onClick="onClick"
-                android:text="Hospitals" />
+                android:text="Museums" />
 
             <Button
                 android:id="@+id/btnStatues"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="78dp"
+                android:layout_marginLeft="4dp"
+                android:layout_height="27dp"
+                android:background="@drawable/custom_button"
+                android:fontFamily="@font/montserrat_bold"
                 android:onClick="onClick"
                 android:text="Statues" />
 
             <Button
                 android:id="@+id/btnRestaurants"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="124dp"
+                android:layout_marginLeft="4dp"
+                android:layout_height="27dp"
+                android:background="@drawable/custom_button"
+                android:fontFamily="@font/montserrat_bold"
                 android:onClick="onClick"
                 android:text="Restaurants" />
 
             <Button
-            android:id="@+id/btnTo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onClick"
-            android:text="To" />
+                android:id="@+id/btnTo"
+                android:layout_width="34dp"
+                android:layout_marginLeft="4dp"
+                android:layout_height="27dp"
+                android:background="@drawable/custom_button"
+                android:fontFamily="@font/montserrat_bold"
+                android:onClick="onClick"
+                android:text="To" />
         </LinearLayout>
 
     </LinearLayout>
 
     <ImageView
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:id="@+id/place_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/place_info"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="120dp"
         android:scaleType="centerCrop"
-        android:id="@+id/place_info"
-        android:src="@drawable/ic_info"/>
+        android:src="@drawable/ic_info" />
 
 </FrameLayout>
