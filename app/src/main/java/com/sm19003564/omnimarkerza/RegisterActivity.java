@@ -36,9 +36,10 @@ public class RegisterActivity extends AppCompatActivity {
 
         emailId = findViewById(R.id.etEmail);
         passwordValue = findViewById(R.id.etPassword);
-      //  confirmPasswordvalue = findViewById(R.id.et_confirmPassword);
+
         tvSignIn = findViewById(R.id.tvSignIn);
         btnSignUp = findViewById(R.id.btnSignUp);
+
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,21 +49,47 @@ public class RegisterActivity extends AppCompatActivity {
                 password = passwordValue.getText().toString().trim();
                 //confirmPassword = confirmPasswordvalue.getText().toString().trim();
 
-                mFirebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                if (email.isEmpty() || password.isEmpty())
+                {
+                    Toast.makeText(RegisterActivity.this, "Please fill in the blank fields", Toast.LENGTH_SHORT).show();
+                } else
+                    {
+                        mFirebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if(task.isSuccessful())
+                                {
+                                    Toast.makeText(RegisterActivity.this, "User Registered", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+
+                                Toast.makeText(RegisterActivity.this, "User Registration Failed", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+
+                mFirebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful())
                         {
-                            Toast.makeText(RegisterActivity.this, "User Registered", Toast.LENGTH_SHORT).show();
+
+                            Toast.makeText(RegisterActivity.this, "Login for " + mFirebaseAuth.getCurrentUser().getEmail() + " successful", Toast.LENGTH_SHORT).show();
+
+                            Intent i = new Intent(RegisterActivity.this, MainActivity.class);
+                            startActivity(i);
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-
-                        Toast.makeText(RegisterActivity.this, "User Registration Failed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "User Login Failed", Toast.LENGTH_SHORT).show();
                     }
                 });
+
             }
         });
 
