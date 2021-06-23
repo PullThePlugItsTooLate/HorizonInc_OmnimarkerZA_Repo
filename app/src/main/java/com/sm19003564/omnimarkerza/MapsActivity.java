@@ -78,7 +78,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //widgets
     private AutoCompleteTextView mSearchText;
     //
-    private PlaceAutocompleteAdapter placeAutocompleteAdapter;
+
     private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds( new LatLng(-40, -168), new LatLng(71, 136));
     public static final int REQUEST_LOCATION_CODE = 99;
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
@@ -143,8 +143,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .addApi(Places.PLACE_DETECTION_API)
                 .enableAutoManage(this, this)
                 .build();
-        placeAutocompleteAdapter = new PlaceAutocompleteAdapter(this, client, LAT_LNG_BOUNDS, null);
-        mSearchText.setAdapter(placeAutocompleteAdapter);
+
+
         mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
