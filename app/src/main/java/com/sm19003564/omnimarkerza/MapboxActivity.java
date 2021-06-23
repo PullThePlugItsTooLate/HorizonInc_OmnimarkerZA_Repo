@@ -8,6 +8,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.widget.Toast;
 
 // classes needed to initialize map
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.mapbox.api.directions.v5.DirectionsCriteria;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
@@ -61,6 +68,12 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
     // variables needed to initialize navigation
     private Button button;
 
+    //Settings
+    Settings settings;
+    private String measure;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference settingsRef = database.getReference(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +82,27 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
+
+        settingsRef.child("SettingsData").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataInfo: snapshot.getChildren()){
+                    settings = dataInfo.getValue(Settings.class);
+                }
+                if (settings.isMetric()) {
+                    measure = "metric";
+                } else {
+                    if (settings.isImperial()){
+                        measure = "imperial";
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(MapboxActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -137,6 +171,7 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                 .accessToken(Mapbox.getAccessToken())
                 .origin(origin)
                 .destination(destination)
+                .voiceUnits(measure)
                 .build()
                 .getRoute(new Callback<DirectionsResponse>() {
                     @Override
@@ -151,7 +186,9 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                             return;
                         }
 
+
                         currentRoute = response.body().routes().get(0);
+
 
                         // Draw the route on the map
                         if (navigationMapRoute != null) {
