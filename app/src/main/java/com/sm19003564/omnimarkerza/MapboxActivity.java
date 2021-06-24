@@ -148,7 +148,7 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                         .accessToken(getString(R.string.access_token))
                         .placeOptions(PlacePickerOptions.builder()
                                 .statingCameraPosition(new CameraPosition.Builder()
-                                        .target(new LatLng(40.7544, -73.9862)).zoom(16).build())
+                                        .target(new LatLng(locationComponent.getLastKnownLocation().getLatitude(), locationComponent.getLastKnownLocation().getLongitude())).zoom(16).build())
                                 .build())
                         .build(this), REQUEST_CODE);
     }
