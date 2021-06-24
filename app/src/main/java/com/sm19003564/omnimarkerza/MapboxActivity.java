@@ -172,8 +172,9 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
             // also be parsed through to grab and display certain information such as
             // its placeName, text, or coordinates.
             if (carmenFeature != null) {
-                selectedLocationTextView.setText(String.format(
-                        getString(R.string.selected_place_info), carmenFeature.toJson()));
+                //selectedLocationTextView.setText(String.format(getString(R.string.selected_place_info), carmenFeature.toJson()));
+
+                pickerRouter(new LatLng(carmenFeature.center().latitude(), carmenFeature.center().longitude()));
             }
         }
 
@@ -324,6 +325,22 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
         button.setEnabled(true);
         button.setBackgroundResource(R.color.mapboxBlue);
         return true;
+    }
+
+    public void pickerRouter(@NonNull LatLng point) {
+
+        Point destinationPoint = Point.fromLngLat(point.getLongitude(), point.getLatitude());
+        Point originPoint = Point.fromLngLat(locationComponent.getLastKnownLocation().getLongitude(),
+                locationComponent.getLastKnownLocation().getLatitude());
+
+        GeoJsonSource source = mapboxMap.getStyle().getSourceAs("destination-source-id");
+        if (source != null) {
+            source.setGeoJson(Feature.fromGeometry(destinationPoint));
+        }
+
+        getRoute(originPoint, destinationPoint);
+        button.setEnabled(true);
+        button.setBackgroundResource(R.color.mapboxBlue);
     }
 
     private void getRoute(Point origin, Point destination) {
