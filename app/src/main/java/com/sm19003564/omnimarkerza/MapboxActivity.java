@@ -5,10 +5,18 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+
+import java.util.ArrayList;
 import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,9 +31,12 @@ import com.google.gson.JsonObject;
 import com.mapbox.api.directions.v5.DirectionsCriteria;
 import com.mapbox.api.geocoding.v5.models.CarmenFeature;
 import com.mapbox.geojson.FeatureCollection;
+import com.mapbox.geojson.LineString;
+import com.mapbox.geojson.Polygon;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
+import com.mapbox.mapboxsdk.geometry.LatLngBounds;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.Style;
@@ -45,12 +56,22 @@ import com.mapbox.mapboxsdk.plugins.places.autocomplete.PlaceAutocomplete;
 import com.mapbox.mapboxsdk.plugins.places.autocomplete.model.PlaceOptions;
 import com.mapbox.mapboxsdk.plugins.places.picker.PlacePicker;
 import com.mapbox.mapboxsdk.plugins.places.picker.model.PlacePickerOptions;
+import com.mapbox.mapboxsdk.style.layers.FillLayer;
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
+
+import static com.mapbox.mapboxsdk.camera.CameraUpdateFactory.newLatLngBounds;
+import static com.mapbox.mapboxsdk.style.expressions.Expression.within;
+import static com.mapbox.mapboxsdk.style.layers.Property.NONE;
+import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.fillColor;
+import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.fillOpacity;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconAllowOverlap;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconIgnorePlacement;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconImage;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconOffset;
+import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.visibility;
+import static com.mapbox.turf.TurfConstants.UNIT_KILOMETERS;
+import static com.mapbox.turf.TurfConstants.UNIT_MILES;
 
 // classes to calculate a route
 import com.mapbox.services.android.navigation.ui.v5.NavigationLauncherOptions;
@@ -67,9 +88,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher;
+import com.mapbox.turf.TurfMeta;
+import com.mapbox.turf.TurfTransformation;
 
 
-public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallback, MapboxMap.OnMapClickListener, PermissionsListener {
+public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallback, MapboxMap.OnMapClickListener, PermissionsListener, AdapterView.OnItemSelectedListener {
     // variables for adding location layer
     private MapView mapView;
     private MapboxMap mapboxMap;
@@ -99,6 +122,19 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
     //Places picker
     private static final int REQUEST_CODE = 5678;
     private TextView selectedLocationTextView;
+
+    //Point of Interest Turf Circle
+    private static final String TURF_CALCULATION_FILL_LAYER_GEOJSON_SOURCE_ID
+            = "TURF_CALCULATION_FILL_LAYER_GEOJSON_SOURCE_ID";
+    private static final String TURF_CALCULATION_FILL_LAYER_ID = "TURF_CALCULATION_FILL_LAYER_ID";
+    private static final int RADIUS_SEEKBAR_DIFFERENCE = 1;
+    private static final int RADIUS_SEEKBAR_MAX = 10;
+    private static final Point DOWNTOWN_MUNICH_START_LOCATION =
+            Point.fromLngLat(31.1328906235521, -29.643437120518342);
+    private Point lastClickPoint;
+    private String circleUnit = UNIT_KILOMETERS;
+    private int circleRadius = RADIUS_SEEKBAR_MAX / 2;
+    private TextView circleRadiusTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,6 +176,8 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                 Toast.makeText(MapboxActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
 
     private void goToPickerActivity() {
@@ -210,7 +248,8 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
     @Override
     public void onMapReady(@NonNull final MapboxMap mapboxMap) {
         this.mapboxMap = mapboxMap;
-        mapboxMap.setStyle(getString(R.string.navigation_guidance_day), new Style.OnStyleLoaded() {
+        mapboxMap.setStyle(new Style.Builder().fromUri(Style.MAPBOX_STREETS)
+                .withSource(new GeoJsonSource(TURF_CALCULATION_FILL_LAYER_GEOJSON_SOURCE_ID)), new Style.OnStyleLoaded() {
             @Override
             public void onStyleLoaded(@NonNull Style style) {
                 enableLocationComponent(style);
@@ -245,8 +284,114 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                         NavigationLauncher.startNavigation(MapboxActivity.this, options);
                     }
                 });
+
+                //POI Turf
+
+
+                hideLayers();
+
+                initPolygonCircleFillLayer();
+
+// Set up the seekbar so that the circle's radius can be adjusted
+                final SeekBar circleRadiusSeekbar = findViewById(R.id.circle_radius_seekbar);
+                circleRadiusSeekbar.setMax(RADIUS_SEEKBAR_MAX);
+                circleRadiusSeekbar.incrementProgressBy(RADIUS_SEEKBAR_DIFFERENCE / 10);
+                circleRadiusSeekbar.setProgress(RADIUS_SEEKBAR_MAX / 2);
+
+                circleRadiusTextView = findViewById(R.id.circle_radius_textview);
+                circleRadiusTextView.setText(String.format(getString(
+                        R.string.polygon_circle_transformation_circle_radius),
+                        String.format(".%s", String.valueOf(RADIUS_SEEKBAR_MAX / 2))));
+
+// Draw the initial circle around the starting location
+                drawPolygonCircle(DOWNTOWN_MUNICH_START_LOCATION);
+
+                circleRadiusSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                        makeNewRadiusAdjustments(seekBar.getProgress());
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+// Not needed in this example.
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+                        makeNewRadiusAdjustments(seekBar.getProgress());
+                    }
+                });
+
+                mapboxMap.addOnMapClickListener(MapboxActivity.this);
+
+                initDistanceUnitSpinner();
+
+                Toast.makeText(MapboxActivity.this,
+                        getString(R.string.polygon_circle_transformation_click_map_instruction),
+                        Toast.LENGTH_SHORT).show();
+            }
+
+        });
+    }
+
+    /**
+     * Remove other types of label layers from the style in order to highlight the POI label layer.
+     */
+    private void hideLayers() {
+        mapboxMap.getStyle(new Style.OnStyleLoaded() {
+            @Override
+            public void onStyleLoaded(@NonNull Style style) {
+                SymbolLayer roadLabelLayer = style.getLayerAs("road-label");
+                if (roadLabelLayer != null) {
+                    roadLabelLayer.setProperties(visibility(NONE));
+                }
+                SymbolLayer transitLabelLayer = style.getLayerAs("transit-label");
+                if (transitLabelLayer != null) {
+                    transitLabelLayer.setProperties(visibility(NONE));
+                }
+                SymbolLayer roadNumberShieldLayer = style.getLayerAs("road-number-shield");
+                if (roadNumberShieldLayer != null) {
+                    roadNumberShieldLayer.setProperties(visibility(NONE));
+                }
             }
         });
+    }
+
+    private void makeNewRadiusAdjustments(int progress) {
+        String amount;
+        if (progress == 0) {
+            amount = "0";
+        } else if (progress == RADIUS_SEEKBAR_MAX) {
+            amount = "1";
+        } else {
+            amount = String.format(".%s", String.valueOf(progress));
+        }
+        circleRadiusTextView.setText(String.format(getString(
+                R.string.polygon_circle_transformation_circle_radius), amount));
+
+        circleRadius = progress;
+        drawPolygonCircle(lastClickPoint != null ? lastClickPoint : DOWNTOWN_MUNICH_START_LOCATION);
+    }
+
+    private void initDistanceUnitSpinner() {
+        Spinner spinner = findViewById(R.id.circle_units_spinner);
+        spinner.setOnItemSelectedListener(this);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.within_poi_filter_circle_distance_units_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parentAdapterView, View view, int position, long id) {
+        String selectedUnitInSpinnerMenu = String.valueOf(parentAdapterView.getItemAtPosition(position));
+        if ("Miles".equals(selectedUnitInSpinnerMenu)) {
+            circleUnit = UNIT_MILES;
+        } else {
+            circleUnit = UNIT_KILOMETERS;
+        }
+        drawPolygonCircle(lastClickPoint != null ? lastClickPoint : DOWNTOWN_MUNICH_START_LOCATION);
     }
 
     private void initSearchFab() {
@@ -324,7 +469,99 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
         getRoute(originPoint, destinationPoint);
         button.setEnabled(true);
         button.setBackgroundResource(R.color.mapboxBlue);
+
+        //POI Turf
+        mapboxMap.easeCamera(CameraUpdateFactory.newLatLng(point));
+        lastClickPoint = Point.fromLngLat(point.getLongitude(), point.getLatitude());
+        drawPolygonCircle(lastClickPoint);
         return true;
+    }
+
+    /**
+     * Update the {@link FillLayer} based on the GeoJSON retrieved via
+     * {@link this#getTurfPolygon(Point, double, String)}.
+     *
+     * @param circleCenter the center coordinate to be used in the Turf calculation.
+     */
+    private void drawPolygonCircle(Point circleCenter) {
+        mapboxMap.getStyle(new Style.OnStyleLoaded() {
+            @Override
+            public void onStyleLoaded(@NonNull Style style) {
+// Use Turf to calculate the Polygon's coordinates
+                Polygon polygonArea = getTurfPolygon(circleCenter, circleRadius, circleUnit);
+
+                List<Point> pointList = TurfMeta.coordAll(polygonArea, false);
+
+// Update the source's GeoJSON to draw a new circle
+                GeoJsonSource polygonCircleSource = style.getSourceAs(TURF_CALCULATION_FILL_LAYER_GEOJSON_SOURCE_ID);
+                if (polygonCircleSource != null) {
+                    polygonCircleSource.setGeoJson(Polygon.fromOuterInner(
+                            LineString.fromLngLats(pointList)));
+                }
+
+// Show new places of interest (POIs)
+                filterPlacesOfInterest(polygonArea);
+
+// Adjust camera bounds to include entire circle
+                List<LatLng> latLngList = new ArrayList<>(pointList.size());
+                for (Point singlePoint : pointList) {
+                    latLngList.add(new LatLng((singlePoint.latitude()), singlePoint.longitude()));
+                }
+                mapboxMap.easeCamera(newLatLngBounds(
+                        new LatLngBounds.Builder()
+                                .includes(latLngList)
+                                .build(), 75), 1000);
+            }
+        });
+    }
+
+    /**
+     * Show only POI labels inside geometry using within expression
+     *
+     * @param polygonArea the polygon area (a circle in this example) to show POIs in.
+     */
+    private void filterPlacesOfInterest(Polygon polygonArea) {
+        mapboxMap.getStyle(new Style.OnStyleLoaded() {
+            @Override
+            public void onStyleLoaded(@NonNull Style style) {
+                SymbolLayer poiLabelLayer = style.getLayerAs("poi-label");
+                if (poiLabelLayer != null) {
+                    poiLabelLayer.setFilter(within(polygonArea));
+                }
+            }
+        });
+    }
+
+    /**
+     * Use the Turf library {@link TurfTransformation#circle(Point, double, int, String)} method to
+     * retrieve a {@link Polygon} .
+     *
+     * @param centerPoint a {@link Point} which the circle will center around
+     * @param radius      the radius of the circle
+     * @param units       one of the units found inside {@link com.mapbox.turf.TurfConstants}
+     * @return a {@link Polygon} which represents the newly created circle
+     */
+    private Polygon getTurfPolygon(@NonNull Point centerPoint, double radius,
+                                   @NonNull String units) {
+        return TurfTransformation.circle(centerPoint, radius / 10, 360, units);
+    }
+
+    /**
+     * Add a {@link FillLayer} to display a {@link Polygon} in a the shape of a circle.
+     */
+    private void initPolygonCircleFillLayer() {
+        mapboxMap.getStyle(new Style.OnStyleLoaded() {
+            @Override
+            public void onStyleLoaded(@NonNull Style style) {
+// Create and style a FillLayer based on information that will come from the Turf calculation
+                FillLayer fillLayer = new FillLayer(TURF_CALCULATION_FILL_LAYER_ID,
+                        TURF_CALCULATION_FILL_LAYER_GEOJSON_SOURCE_ID);
+                fillLayer.setProperties(
+                        fillColor(Color.parseColor("#f5425d")),
+                        fillOpacity(.5f));
+                style.addLayerBelow(fillLayer, "poi-label");
+            }
+        });
     }
 
     public void pickerRouter(@NonNull LatLng point) {
@@ -460,5 +697,10 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
     public void onLowMemory() {
         super.onLowMemory();
         mapView.onLowMemory();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

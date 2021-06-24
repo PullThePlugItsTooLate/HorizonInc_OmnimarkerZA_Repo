@@ -12,7 +12,22 @@
         android:layout_height="match_parent"
         mapbox:mapbox_cameraTargetLat="38.9098"
         mapbox:mapbox_cameraTargetLng="-77.0295"
-        mapbox:mapbox_cameraZoom="12" />
+        mapbox:mapbox_cameraZoom="12" >
+
+    </com.mapbox.mapboxsdk.maps.MapView>
+
+    <Button
+        android:id="@+id/go_to_picker_button"
+        android:layout_width="228dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:text="@string/go_to_picker_activity"
+        android:visibility="invisible"
+        mapbox:layout_constraintBottom_toBottomOf="parent"
+        mapbox:layout_constraintEnd_toEndOf="parent"
+        mapbox:layout_constraintStart_toStartOf="parent"
+        mapbox:layout_constraintTop_toTopOf="@+id/mapView"
+        mapbox:layout_constraintVertical_bias="0.050000012" />
 
     <Button
         android:id="@+id/startButton"
@@ -28,13 +43,73 @@
         mapbox:layout_constraintTop_toTopOf="parent"
         mapbox:layout_constraintVertical_bias="0.95" />
 
-    <Button
-        android:id="@+id/go_to_picker_button"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.80" />
+
+    <TextView
+        android:id="@+id/circle_radius_textview"
+        android:layout_width="0dp"
+        android:layout_height="27dp"
+        android:gravity="center"
         android:visibility="invisible"
-        android:text="@string/go_to_picker_activity" />
+        android:text="@string/polygon_circle_transformation_circle_radius"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline9"
+        mapbox:layout_constraintBottom_toBottomOf="parent"
+        mapbox:layout_constraintEnd_toEndOf="parent"
+        mapbox:layout_constraintStart_toStartOf="parent"
+        mapbox:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/distance_units_textview"
+        android:layout_width="60dp"
+        android:visibility="invisible"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center"
+        android:text="@string/polygon_circle_transformation_circle_distance_units"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        mapbox:layout_constraintBottom_toTopOf="@+id/startButton"
+        mapbox:layout_constraintStart_toStartOf="parent"
+        mapbox:layout_constraintTop_toTopOf="parent"
+        mapbox:layout_constraintVertical_bias="0.16000003" />
+
+    <SeekBar
+        android:id="@+id/circle_radius_seekbar"
+        android:layout_width="395dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/circle_radius_textview" />
+
+    <Spinner
+        android:id="@+id/circle_units_spinner"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/distance_units_textview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/distance_units_textview"
+        app:layout_constraintTop_toTopOf="@+id/distance_units_textview"
+        mapbox:layout_constraintBottom_toBottomOf="parent"
+        mapbox:layout_constraintEnd_toEndOf="parent"
+        mapbox:layout_constraintHorizontal_bias="0.0"
+        mapbox:layout_constraintStart_toEndOf="@+id/distance_units_textview"
+        mapbox:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/selected_location_info_textview"
