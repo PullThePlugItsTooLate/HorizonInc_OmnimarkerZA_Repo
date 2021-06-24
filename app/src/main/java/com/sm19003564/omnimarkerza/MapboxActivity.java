@@ -8,6 +8,8 @@ import android.os.Bundle;
 import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.widget.TextView;
 import android.widget.Toast;
 
 // classes needed to initialize map
@@ -41,6 +43,8 @@ import com.mapbox.geojson.Point;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.plugins.places.autocomplete.PlaceAutocomplete;
 import com.mapbox.mapboxsdk.plugins.places.autocomplete.model.PlaceOptions;
+import com.mapbox.mapboxsdk.plugins.places.picker.PlacePicker;
+import com.mapbox.mapboxsdk.plugins.places.picker.model.PlacePickerOptions;
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconAllowOverlap;
@@ -85,12 +89,16 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference settingsRef = database.getReference(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-    //Places
+    //Search
     private static final int REQUEST_CODE_AUTOCOMPLETE = 1;
     private CarmenFeature hospital;
     private CarmenFeature college;
     private String geojsonSourceLayerId = "geojsonSourceLayerId";
     private String symbolIconId = "symbolIconId";
+
+    //Places picker
+    private static final int REQUEST_CODE = 5678;
+    private TextView selectedLocationTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +109,17 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
 
+        selectedLocationTextView = findViewById(R.id.selected_location_info_textview);
+
+        // Show the button and set the OnClickListener()
+        Button goToPickerActivityButton = findViewById(R.id.go_to_picker_button);
+        goToPickerActivityButton.setVisibility(View.VISIBLE);
+        goToPickerActivityButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToPickerActivity();
+            }
+        });
         settingsRef.child("SettingsData").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -121,6 +140,70 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                 Toast.makeText(MapboxActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void goToPickerActivity() {
+        startActivityForResult(
+                new PlacePicker.IntentBuilder()
+                        .accessToken(getString(R.string.access_token))
+                        .placeOptions(PlacePickerOptions.builder()
+                                .statingCameraPosition(new CameraPosition.Builder()
+                                        .target(new LatLng(40.7544, -73.9862)).zoom(16).build())
+                                .build())
+                        .build(this), REQUEST_CODE);
+    }
+
+    /**
+     * This fires after a location is selected in the Places Plugin's PlacePickerActivity.
+     * @param requestCode code that is a part of the return to this activity
+     * @param resultCode code that is a part of the return to this activity
+     * @param data the data that is a part of the return to this activity
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_CANCELED) {
+
+        } else if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            // Retrieve the information from the selected location's CarmenFeature
+            CarmenFeature carmenFeature = PlacePicker.getPlace(data);
+
+            // Set the TextView text to the entire CarmenFeature. The CarmenFeature
+            // also be parsed through to grab and display certain information such as
+            // its placeName, text, or coordinates.
+            if (carmenFeature != null) {
+                selectedLocationTextView.setText(String.format(
+                        getString(R.string.selected_place_info), carmenFeature.toJson()));
+            }
+        }
+
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_AUTOCOMPLETE) {
+
+            // Retrieve selected location's CarmenFeature
+            CarmenFeature selectedCarmenFeature = PlaceAutocomplete.getPlace(data);
+
+            // Create a new FeatureCollection and add a new Feature to it using selectedCarmenFeature above.
+            // Then retrieve and update the source designated for showing a selected location's symbol layer icon
+
+            if (mapboxMap != null) {
+                Style style = mapboxMap.getStyle();
+                if (style != null) {
+                    GeoJsonSource source = style.getSourceAs(geojsonSourceLayerId);
+                    if (source != null) {
+                        source.setGeoJson(FeatureCollection.fromFeatures(
+                                new Feature[] {Feature.fromJson(selectedCarmenFeature.toJson())}));
+                    }
+
+                    // Move map camera to the selected location
+                    mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(
+                            new CameraPosition.Builder()
+                                    .target(new LatLng(((Point) selectedCarmenFeature.geometry()).latitude(),
+                                            ((Point) selectedCarmenFeature.geometry()).longitude()))
+                                    .zoom(14)
+                                    .build()), 4000);
+                }
+            }
+        }
     }
 
     @Override
@@ -208,38 +291,6 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                 iconImage(symbolIconId),
                 iconOffset(new Float[] {0f, -8f})
         ));
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_AUTOCOMPLETE) {
-
-            // Retrieve selected location's CarmenFeature
-            CarmenFeature selectedCarmenFeature = PlaceAutocomplete.getPlace(data);
-
-            // Create a new FeatureCollection and add a new Feature to it using selectedCarmenFeature above.
-            // Then retrieve and update the source designated for showing a selected location's symbol layer icon
-
-            if (mapboxMap != null) {
-                Style style = mapboxMap.getStyle();
-                if (style != null) {
-                    GeoJsonSource source = style.getSourceAs(geojsonSourceLayerId);
-                    if (source != null) {
-                        source.setGeoJson(FeatureCollection.fromFeatures(
-                                new Feature[] {Feature.fromJson(selectedCarmenFeature.toJson())}));
-                    }
-
-                    // Move map camera to the selected location
-                    mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(
-                            new CameraPosition.Builder()
-                                    .target(new LatLng(((Point) selectedCarmenFeature.geometry()).latitude(),
-                                            ((Point) selectedCarmenFeature.geometry()).longitude()))
-                                    .zoom(14)
-                                    .build()), 4000);
-                }
-            }
-        }
     }
 
     private void addDestinationIconSymbolLayer(@NonNull Style loadedMapStyle) {
