@@ -451,15 +451,15 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
             @Override
             public void onClick(View view) {
                 addUserLocations();
-                if (counter == 0) {
-                    switch(3) {
+                if (counter != 0) {
+                    switch(counter) {
                         case 1:
                             Intent intent = new PlaceAutocomplete.IntentBuilder()
                                     .accessToken(Mapbox.getAccessToken() != null ? Mapbox.getAccessToken() : getString(R.string.access_token))
                                     .placeOptions(PlaceOptions.builder()
                                             .backgroundColor(Color.parseColor("#EEEEEE")).country("ZA")
                                             .limit(10)
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(0))
+                                            .addInjectedFeature(favP1)
                                             .build(PlaceOptions.MODE_CARDS))
                                     .build(MapboxActivity.this);
                             startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE);
@@ -471,8 +471,8 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                                     .placeOptions(PlaceOptions.builder()
                                             .backgroundColor(Color.parseColor("#EEEEEE")).country("ZA")
                                             .limit(10)
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(0))
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(1))
+                                            .addInjectedFeature(favP1)
+                                            .addInjectedFeature(favP2)
                                             .build(PlaceOptions.MODE_CARDS))
                                     .build(MapboxActivity.this);
                             startActivityForResult(intent2, REQUEST_CODE_AUTOCOMPLETE);
@@ -484,9 +484,9 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                                     .placeOptions(PlaceOptions.builder()
                                             .backgroundColor(Color.parseColor("#EEEEEE")).country("ZA")
                                             .limit(10)
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(0))
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(1))
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(2))
+                                            .addInjectedFeature(favP1)
+                                            .addInjectedFeature(favP2)
+                                            .addInjectedFeature(favP3)
                                             .build(PlaceOptions.MODE_CARDS))
                                     .build(MapboxActivity.this);
                             startActivityForResult(intent3, REQUEST_CODE_AUTOCOMPLETE);
@@ -498,10 +498,10 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                                     .placeOptions(PlaceOptions.builder()
                                             .backgroundColor(Color.parseColor("#EEEEEE")).country("ZA")
                                             .limit(10)
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(0))
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(1))
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(2))
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(3))
+                                            .addInjectedFeature(favP1)
+                                            .addInjectedFeature(favP2)
+                                            .addInjectedFeature(favP3)
+                                            .addInjectedFeature(favP4)
                                             .build(PlaceOptions.MODE_CARDS))
                                     .build(MapboxActivity.this);
                             startActivityForResult(intent4, REQUEST_CODE_AUTOCOMPLETE);
@@ -513,11 +513,11 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                                     .placeOptions(PlaceOptions.builder()
                                             .backgroundColor(Color.parseColor("#EEEEEE")).country("ZA")
                                             .limit(10)
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(0))
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(1))
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(2))
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(3))
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(4))
+                                            .addInjectedFeature(favP1)
+                                            .addInjectedFeature(favP2)
+                                            .addInjectedFeature(favP3)
+                                            .addInjectedFeature(favP4)
+                                            .addInjectedFeature(favP5)
                                             .build(PlaceOptions.MODE_CARDS))
                                     .build(MapboxActivity.this);
                             startActivityForResult(intent5, REQUEST_CODE_AUTOCOMPLETE);
@@ -529,12 +529,12 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                                     .placeOptions(PlaceOptions.builder()
                                             .backgroundColor(Color.parseColor("#EEEEEE")).country("ZA")
                                             .limit(10)
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(0))
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(1))
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(2))
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(3))
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(4))
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(5))
+                                            .addInjectedFeature(favP1)
+                                            .addInjectedFeature(favP2)
+                                            .addInjectedFeature(favP3)
+                                            .addInjectedFeature(favP4)
+                                            .addInjectedFeature(favP5)
+                                            .addInjectedFeature(favP6)
                                             .build(PlaceOptions.MODE_CARDS))
                                     .build(MapboxActivity.this);
                             startActivityForResult(intent6, REQUEST_CODE_AUTOCOMPLETE);
@@ -546,13 +546,13 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                                     .placeOptions(PlaceOptions.builder()
                                             .backgroundColor(Color.parseColor("#EEEEEE")).country("ZA")
                                             .limit(10)
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(0))
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(1))
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(2))
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(3))
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(4))
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(5))
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(6))
+                                            .addInjectedFeature(favP1)
+                                            .addInjectedFeature(favP2)
+                                            .addInjectedFeature(favP3)
+                                            .addInjectedFeature(favP4)
+                                            .addInjectedFeature(favP5)
+                                            .addInjectedFeature(favP6)
+                                            .addInjectedFeature(favP7)
                                             .build(PlaceOptions.MODE_CARDS))
                                     .build(MapboxActivity.this);
                             startActivityForResult(intent7, REQUEST_CODE_AUTOCOMPLETE);
@@ -564,14 +564,14 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                                     .placeOptions(PlaceOptions.builder()
                                             .backgroundColor(Color.parseColor("#EEEEEE")).country("ZA")
                                             .limit(10)
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(0))
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(1))
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(2))
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(3))
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(4))
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(5))
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(6))
-                                            .addInjectedFeature(lstAddFavouritePlaces.get(7))
+                                            .addInjectedFeature(favP1)
+                                            .addInjectedFeature(favP2)
+                                            .addInjectedFeature(favP3)
+                                            .addInjectedFeature(favP4)
+                                            .addInjectedFeature(favP5)
+                                            .addInjectedFeature(favP6)
+                                            .addInjectedFeature(favP7)
+                                            .addInjectedFeature(favP8)
                                             .build(PlaceOptions.MODE_CARDS))
                                     .build(MapboxActivity.this);
                             startActivityForResult(intent8, REQUEST_CODE_AUTOCOMPLETE);
@@ -616,28 +616,96 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                 .properties(new JsonObject())
                 .build();
 
-        lstFavouritePlaces = new ArrayList<FavouritePlace>();
-
-
-
         favouritesRef.child("FavouritePlaceData").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataInfo: snapshot.getChildren()){
 
-                    lstFavouritePlaces.add(dataInfo.getValue(FavouritePlace.class));
-                    favP1 = CarmenFeature.builder()
-                            .text(dataInfo.getValue(FavouritePlace.class).getText())
-                            .placeName(dataInfo.getValue(FavouritePlace.class).getPlaceName())
-                            .address(dataInfo.getValue(FavouritePlace.class).getAddress())
-                            .geometry(Point.fromLngLat(dataInfo.getValue(FavouritePlace.class).getLongitude(), dataInfo.getValue(FavouritePlace.class).getLatitude()))
-                            .id(dataInfo.getValue(FavouritePlace.class).getId())
-                            .properties(new JsonObject())
-                            .build();
                     counter++;
 
+                    switch (counter) {
+                        case 1:
+                            favP1 = CarmenFeature.builder()
+                                    .text(dataInfo.getValue(FavouritePlace.class).getText())
+                                    .placeName(dataInfo.getValue(FavouritePlace.class).getPlaceName())
+                                    .address(dataInfo.getValue(FavouritePlace.class).getAddress())
+                                    .geometry(Point.fromLngLat(dataInfo.getValue(FavouritePlace.class).getLongitude(), dataInfo.getValue(FavouritePlace.class).getLatitude()))
+                                    .id(dataInfo.getValue(FavouritePlace.class).getId())
+                                    .properties(new JsonObject())
+                                    .build();
+                            break;
+                        case 2:
+                            favP2 = CarmenFeature.builder()
+                                    .text(dataInfo.getValue(FavouritePlace.class).getText())
+                                    .placeName(dataInfo.getValue(FavouritePlace.class).getPlaceName())
+                                    .address(dataInfo.getValue(FavouritePlace.class).getAddress())
+                                    .geometry(Point.fromLngLat(dataInfo.getValue(FavouritePlace.class).getLongitude(), dataInfo.getValue(FavouritePlace.class).getLatitude()))
+                                    .id(dataInfo.getValue(FavouritePlace.class).getId())
+                                    .properties(new JsonObject())
+                                    .build();
+                            break;
+                        case 3:
+                            favP3 = CarmenFeature.builder()
+                                    .text(dataInfo.getValue(FavouritePlace.class).getText())
+                                    .placeName(dataInfo.getValue(FavouritePlace.class).getPlaceName())
+                                    .address(dataInfo.getValue(FavouritePlace.class).getAddress())
+                                    .geometry(Point.fromLngLat(dataInfo.getValue(FavouritePlace.class).getLongitude(), dataInfo.getValue(FavouritePlace.class).getLatitude()))
+                                    .id(dataInfo.getValue(FavouritePlace.class).getId())
+                                    .properties(new JsonObject())
+                                    .build();
+                            break;
+                        case 4:
+                            favP4 = CarmenFeature.builder()
+                                    .text(dataInfo.getValue(FavouritePlace.class).getText())
+                                    .placeName(dataInfo.getValue(FavouritePlace.class).getPlaceName())
+                                    .address(dataInfo.getValue(FavouritePlace.class).getAddress())
+                                    .geometry(Point.fromLngLat(dataInfo.getValue(FavouritePlace.class).getLongitude(), dataInfo.getValue(FavouritePlace.class).getLatitude()))
+                                    .id(dataInfo.getValue(FavouritePlace.class).getId())
+                                    .properties(new JsonObject())
+                                    .build();
+                            break;
+                        case 5:
+                            favP5 = CarmenFeature.builder()
+                                    .text(dataInfo.getValue(FavouritePlace.class).getText())
+                                    .placeName(dataInfo.getValue(FavouritePlace.class).getPlaceName())
+                                    .address(dataInfo.getValue(FavouritePlace.class).getAddress())
+                                    .geometry(Point.fromLngLat(dataInfo.getValue(FavouritePlace.class).getLongitude(), dataInfo.getValue(FavouritePlace.class).getLatitude()))
+                                    .id(dataInfo.getValue(FavouritePlace.class).getId())
+                                    .properties(new JsonObject())
+                                    .build();
+                            break;
+                        case 6:
+                            favP6 = CarmenFeature.builder()
+                                    .text(dataInfo.getValue(FavouritePlace.class).getText())
+                                    .placeName(dataInfo.getValue(FavouritePlace.class).getPlaceName())
+                                    .address(dataInfo.getValue(FavouritePlace.class).getAddress())
+                                    .geometry(Point.fromLngLat(dataInfo.getValue(FavouritePlace.class).getLongitude(), dataInfo.getValue(FavouritePlace.class).getLatitude()))
+                                    .id(dataInfo.getValue(FavouritePlace.class).getId())
+                                    .properties(new JsonObject())
+                                    .build();
+                            break;
+                        case 7:
+                            favP7 = CarmenFeature.builder()
+                                    .text(dataInfo.getValue(FavouritePlace.class).getText())
+                                    .placeName(dataInfo.getValue(FavouritePlace.class).getPlaceName())
+                                    .address(dataInfo.getValue(FavouritePlace.class).getAddress())
+                                    .geometry(Point.fromLngLat(dataInfo.getValue(FavouritePlace.class).getLongitude(), dataInfo.getValue(FavouritePlace.class).getLatitude()))
+                                    .id(dataInfo.getValue(FavouritePlace.class).getId())
+                                    .properties(new JsonObject())
+                                    .build();
+                            break;
+                        case 8:
+                            favP8 = CarmenFeature.builder()
+                                    .text(dataInfo.getValue(FavouritePlace.class).getText())
+                                    .placeName(dataInfo.getValue(FavouritePlace.class).getPlaceName())
+                                    .address(dataInfo.getValue(FavouritePlace.class).getAddress())
+                                    .geometry(Point.fromLngLat(dataInfo.getValue(FavouritePlace.class).getLongitude(), dataInfo.getValue(FavouritePlace.class).getLatitude()))
+                                    .id(dataInfo.getValue(FavouritePlace.class).getId())
+                                    .properties(new JsonObject())
+                                    .build();
+                            break;
+                    }
                 }
-                Toast.makeText(MapboxActivity.this, lstFavouritePlaces.size() + "size", Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
