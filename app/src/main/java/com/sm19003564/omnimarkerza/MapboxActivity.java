@@ -122,6 +122,7 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
     //Places picker
     private static final int REQUEST_CODE = 5678;
     private TextView selectedLocationTextView;
+    private LatLng pickerPointOrigin;
 
     //Point of Interest Turf Circle
     private static final String TURF_CALCULATION_FILL_LAYER_GEOJSON_SOURCE_ID
@@ -181,12 +182,17 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
     }
 
     private void goToPickerActivity() {
+
+        if (pickerPointOrigin == null) {
+            pickerPointOrigin = new LatLng(locationComponent.getLastKnownLocation().getLatitude(), locationComponent.getLastKnownLocation().getLongitude());
+        }
+
         startActivityForResult(
                 new PlacePicker.IntentBuilder()
                         .accessToken(getString(R.string.access_token))
                         .placeOptions(PlacePickerOptions.builder()
                                 .statingCameraPosition(new CameraPosition.Builder()
-                                        .target(new LatLng(locationComponent.getLastKnownLocation().getLatitude(), locationComponent.getLastKnownLocation().getLongitude())).zoom(16).build())
+                                        .target(pickerPointOrigin).zoom(16).build())
                                 .build())
                         .build(this), REQUEST_CODE);
     }
@@ -482,6 +488,8 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
         button.setEnabled(true);
         button.setBackgroundResource(R.drawable.rounded_button_active);
 
+        //Point Picker
+        pickerPointOrigin = new LatLng(point.getLatitude(), point.getLongitude());
         //POI Turf
         mapboxMap.easeCamera(CameraUpdateFactory.newLatLng(point));
         lastClickPoint = Point.fromLngLat(point.getLongitude(), point.getLatitude());
@@ -504,6 +512,8 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
         button.setEnabled(true);
         button.setBackgroundResource(R.drawable.rounded_button_active);
 
+        //Point Picker
+        pickerPointOrigin = new LatLng(point.getLatitude(), point.getLongitude());
         //POI Turf
         mapboxMap.easeCamera(CameraUpdateFactory.newLatLng(point));
         lastClickPoint = Point.fromLngLat(point.getLongitude(), point.getLatitude());
