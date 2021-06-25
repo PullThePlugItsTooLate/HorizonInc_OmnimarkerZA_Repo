@@ -129,7 +129,7 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
     private static final String TURF_CALCULATION_FILL_LAYER_ID = "TURF_CALCULATION_FILL_LAYER_ID";
     private static final int RADIUS_SEEKBAR_DIFFERENCE = 1;
     private static final int RADIUS_SEEKBAR_MAX = 10;
-    private static final Point DOWNTOWN_MUNICH_START_LOCATION =
+    private static final Point DOWNTON_MUNICH_START_LOCATION =
             Point.fromLngLat(31.1328906235521, -29.643437120518342);
     private Point lastClickPoint;
     private String circleUnit = UNIT_KILOMETERS;
@@ -292,7 +292,7 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
 
                 initPolygonCircleFillLayer();
 
-// Set up the seekbar so that the circle's radius can be adjusted
+                // Set up the seekbar so that the circle's radius can be adjusted
                 final SeekBar circleRadiusSeekbar = findViewById(R.id.circle_radius_seekbar);
                 circleRadiusSeekbar.setMax(RADIUS_SEEKBAR_MAX);
                 circleRadiusSeekbar.incrementProgressBy(RADIUS_SEEKBAR_DIFFERENCE / 10);
@@ -303,8 +303,8 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                         R.string.polygon_circle_transformation_circle_radius),
                         String.format(".%s", String.valueOf(RADIUS_SEEKBAR_MAX / 2))));
 
-// Draw the initial circle around the starting location
-                drawPolygonCircle(DOWNTOWN_MUNICH_START_LOCATION);
+                // Draw the initial circle around the starting location
+                //drawPolygonCircle(DOWNTOWN_MUNICH_START_LOCATION);
 
                 circleRadiusSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
@@ -371,7 +371,8 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                 R.string.polygon_circle_transformation_circle_radius), amount));
 
         circleRadius = progress;
-        drawPolygonCircle(lastClickPoint != null ? lastClickPoint : DOWNTOWN_MUNICH_START_LOCATION);
+        Point lcp = Point.fromLngLat(locationComponent.getLastKnownLocation().getLongitude(), locationComponent.getLastKnownLocation().getLatitude());
+        drawPolygonCircle(lastClickPoint != null ? lastClickPoint : lcp);
     }
 
     private void initDistanceUnitSpinner() {
@@ -391,7 +392,8 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
         } else {
             circleUnit = UNIT_KILOMETERS;
         }
-        drawPolygonCircle(lastClickPoint != null ? lastClickPoint : DOWNTOWN_MUNICH_START_LOCATION);
+        Point lcp = Point.fromLngLat(locationComponent.getLastKnownLocation().getLongitude(), locationComponent.getLastKnownLocation().getLatitude());
+        drawPolygonCircle(lastClickPoint != null ? lastClickPoint : lcp);
     }
 
     private void initSearchFab() {
@@ -475,6 +477,27 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
         lastClickPoint = Point.fromLngLat(point.getLongitude(), point.getLatitude());
         drawPolygonCircle(lastClickPoint);
         return true;
+    }
+
+    public void pickerRouter(@NonNull LatLng point) {
+
+        Point destinationPoint = Point.fromLngLat(point.getLongitude(), point.getLatitude());
+        Point originPoint = Point.fromLngLat(locationComponent.getLastKnownLocation().getLongitude(),
+                locationComponent.getLastKnownLocation().getLatitude());
+
+        GeoJsonSource source = mapboxMap.getStyle().getSourceAs("destination-source-id");
+        if (source != null) {
+            source.setGeoJson(Feature.fromGeometry(destinationPoint));
+        }
+
+        getRoute(originPoint, destinationPoint);
+        button.setEnabled(true);
+        button.setBackgroundResource(R.color.mapboxBlue);
+
+        //POI Turf
+        mapboxMap.easeCamera(CameraUpdateFactory.newLatLng(point));
+        lastClickPoint = Point.fromLngLat(point.getLongitude(), point.getLatitude());
+        drawPolygonCircle(lastClickPoint);
     }
 
     /**
@@ -562,22 +585,6 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                 style.addLayerBelow(fillLayer, "poi-label");
             }
         });
-    }
-
-    public void pickerRouter(@NonNull LatLng point) {
-
-        Point destinationPoint = Point.fromLngLat(point.getLongitude(), point.getLatitude());
-        Point originPoint = Point.fromLngLat(locationComponent.getLastKnownLocation().getLongitude(),
-                locationComponent.getLastKnownLocation().getLatitude());
-
-        GeoJsonSource source = mapboxMap.getStyle().getSourceAs("destination-source-id");
-        if (source != null) {
-            source.setGeoJson(Feature.fromGeometry(destinationPoint));
-        }
-
-        getRoute(originPoint, destinationPoint);
-        button.setEnabled(true);
-        button.setBackgroundResource(R.color.mapboxBlue);
     }
 
     private void getRoute(Point origin, Point destination) {
