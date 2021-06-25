@@ -9,38 +9,6 @@
     android:background="@drawable/pop_bg">
 
     <ImageView
-        android:id="@+id/iv_Favourites"
-        android:layout_width="75dp"
-        android:layout_height="70dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.175"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.447"
-        app:srcCompat="@drawable/star" />
-
-    <TextView
-        android:id="@+id/tv_Favourites"
-        android:layout_width="117dp"
-        android:layout_height="26dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:shadowColor="#000000"
-        android:shadowDx="5"
-
-        android:shadowDy="4"
-        android:shadowRadius="5"
-        android:text="FAVOURITES"
-        android:textColor="#FFFFFF"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.129"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.531" />
-
-    <ImageView
         android:id="@+id/ivMenuIcon"
         android:layout_width="100dp"
         android:layout_height="93dp"

@@ -23,7 +23,7 @@ import java.nio.file.Files;
 public class MainActivity extends AppCompatActivity {
 
     Button btnLandmarks, btnFavourites, btnSettings, btnSafetyInfo, btnCurrencyConverter, btnWeather, btnProfile, btnMapBox;
-    ImageView iv_CurrencyConverter, iv_Profile, iv_Settings, iv_SafetyInformation, iv_Maps, iv_Favourites;
+    ImageView iv_CurrencyConverter, iv_Profile, iv_Settings, iv_SafetyInformation, iv_Maps;
     TextView tvMeasure;
     Settings settings;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
         iv_Settings = findViewById(R.id.iv_Settings);
         iv_SafetyInformation = findViewById(R.id.iv_SafetyInformation);
         iv_Maps = findViewById(R.id.iv_Maps);
-        iv_Favourites = findViewById(R.id.iv_Favourites);
        // btnMapBox = findViewById(R.id.btnMapBox);
 
         tvMeasure = findViewById(R.id.tvMeasure);
@@ -117,17 +116,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
-        iv_Favourites.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, FavouritesActivity.class);
-                startActivity(i);
-            }
-        });
-
-
-
-
     }
 }
