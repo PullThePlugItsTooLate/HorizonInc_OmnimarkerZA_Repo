@@ -619,6 +619,7 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
         favouritesRef.child("FavouritePlaceData").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                counter = 0;
                 for (DataSnapshot dataInfo: snapshot.getChildren()){
 
                     counter++;
