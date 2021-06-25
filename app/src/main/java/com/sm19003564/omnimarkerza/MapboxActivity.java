@@ -155,6 +155,7 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
     CarmenFeature favP6;
     CarmenFeature favP7;
     CarmenFeature favP8;
+    int counter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -450,7 +451,7 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
             @Override
             public void onClick(View view) {
                 addUserLocations();
-                if (lstAddFavouritePlaces != null) {
+                if (counter == 0) {
                     switch(3) {
                         case 1:
                             Intent intent = new PlaceAutocomplete.IntentBuilder()
@@ -590,7 +591,6 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                                             .limit(10)
                                             .addInjectedFeature(hospital)
                                             .addInjectedFeature(college)
-                                            .addInjectedFeature(favP1)
                                             .build(PlaceOptions.MODE_CARDS))
                                     .build(MapboxActivity.this);
                             startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE);
@@ -634,6 +634,7 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                             .id(dataInfo.getValue(FavouritePlace.class).getId())
                             .properties(new JsonObject())
                             .build();
+                    counter++;
 
                 }
                 Toast.makeText(MapboxActivity.this, lstFavouritePlaces.size() + "size", Toast.LENGTH_SHORT).show();
