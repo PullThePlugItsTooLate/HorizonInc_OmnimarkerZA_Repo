@@ -52,7 +52,6 @@
         <activity
             android:name=".SafetyInfoGeneralPopActivity"
             android:theme="@style/AppTheme.PopMe" />
-        <activity android:name=".MapsActivity" />
         <activity android:name=".WeatherActivity" />
         <activity android:name=".SafetyInfoActivity" />
         <activity android:name=".CurrencyConverterActivity" />
