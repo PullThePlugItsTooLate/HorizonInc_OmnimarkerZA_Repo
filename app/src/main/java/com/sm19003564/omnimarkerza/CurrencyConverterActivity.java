@@ -32,6 +32,8 @@ public class CurrencyConverterActivity extends AppCompatActivity {
     EditText firstAmount;
     TextView secondAmount;
     Button convertButton;
+    String currency1, currency2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,7 @@ public class CurrencyConverterActivity extends AppCompatActivity {
         convertButton = findViewById(R.id.convertButton);
 
         //Populate Spinners
-        String [] spinnerList  = {"AED","AFN","ALL","AMD","ANG","AOA","ARS","AUD","AWG","AZN","BRL","BSD","BTN","BWP","BYN","CAD","CDF","CHF","CLP","CNY","COP","CRC","CUC","CUP","CVE","CZK","DJF","DZD","EGP","ETB","EUR","FJD","GBP","GHS","GNF","GTQ","GYD", "HKD", "HRK", "HTG", "HUF", "IDR", "ILS", "INR", "IQD", "IRR", "ISK", "JMD", "JOD", "JPY", "KES", "KHR", "KID", "KMF","KRW", "KWD", "KYD", "KZT", "LAK", "LBP", "LKR", "LRD", "LSL", "LYD", "MAD", "MGA", "MMK", "MNT", "MRU", "MUR", "MVR", "MWK", "MXN", "MYR", "MZN", "NAD", "NGN", "NOK", "NPR", "NZD", "OMR", "PAB", "PEN", "PGK", "PHP", "PKR", "PLN", "PYG", "QAR", "RON", "RSD", "RUB", "RWF", "SAR", "SCR", "SDG", "SEK", "SGD", "SOS", "SSP", "SYP", "THB", "TND", "TRY", "TVD", "TWD", "TZS", "UAH", "UGX", "USD", "UYU", "UZS", "VES", "VND", "XAF", "XCD", "XDR", "XOF", "YER", "ZAR", "ZMW",};
+        String [] spinnerList  = {"AED - United Arab Emirates","AFN - Afghanistan","ALL - Albania","AMD - Armenia","ANG - Netherlands Antilles","AOA - Angola","ARS - Argentina","AUD - Australia","AWG - Aruba","AZN - Azerbaijan","BRL - Brazil","BSD - Bahamas","BTN - Bhutan","BWP - Botswana","BYN - Belarus","CAD - Canada","CDF - Democratic Republic of the Congo","CHF - Switzerland","CLP - Chile","CNY - China","COP - Colombia","CRC - Costa Rica","CUC - Cuba","CUP - Cuba","CVE - Cape Verde","CZK - Czech Republic","DJF - Djibouti","DZD - Algeria","EGP - Egypt","ETB - Ethiopia","EUR - European Union","FJD - Fiji","GBP - United Kingdom","GHS - Ghana","GNF - Guinea","GTQ - Guatemala","GYD - Guyana", "HKD - Hong Kong", "HRK - Croatia", "HTG - Haiti", "HUF - Hungary", "IDR - Indonesia", "INR - India", "IQD - Iraq", "IRR - Iran", "ISK - Iceland", "JMD - Jamaica", "JOD - Jordan", "JPY - Japan", "KES - Kenya", "KHR - Cambodia", "KID - Kiribati", "KMF - Comoros","KRW - South Korea", "KWD - Kuwait", "KYD - Cayman Islands", "KZT - Kazakhstan", "LAK - Laos", "LBP - Lebanon", "LKR - Sri Lanka", "LRD - Liberia", "LSL - Lesotho", "LYD - Libya", "MAD - Morocco", "MGA - Madagascar", "MMK - Myanmar", "MNT - Mongolia", "MUR - Mauritius", "MVR - Maldives", "MWK - Malawi", "MXN - Mexico", "MYR - Malaysia", "MZN - Mozambique", "NAD - Namibia", "NGN - Nigeria", "NOK - Norway", "NPR - Nepal", "NZD - New Zealand", "OMR - Oman", "PAB - Panama", "PEN - Peru", "PGK - Papua New Guinea", "PHP - Philippines", "PKR - Pakistan", "PLN - Poland", "PYG - Paraguay", "QAR - Qatar", "RON - Romania", "RSD - Serbia", "RUB - Russia", "RWF - Rwanda", "SAR - Saudi Arabia", "SCR - Seychelles", "SDG - Sudan", "SEK - Sweden", "SGD - Singapore", "SOS - Somalia", "SSP - South Sudan", "SYP - Syria", "THB - Thailand", "TND - Tunisia", "TRY - Turkey", "TVD - Tuvalu", "TWD - Taiwan", "TZS - Tanzania", "UAH - Ukraine", "UGX - Uganda", "USD - United States of America", "UYU - Uruguay", "UZS - Uzbekistan", "VES - Venezuela", "VND - Vietnam", "XAF - CEMAC", "XCD - Organisation of Eastern Caribbean States", "XDR - International Monetary Fund", "XOF - CFA", "YER - Yemen", "ZAR - South Africa", "ZMW - Zambia"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, spinnerList);
         spinnerFirstAmount.setAdapter(adapter);
         spinnerSecondAmount.setAdapter(adapter);
@@ -67,9 +69,16 @@ public class CurrencyConverterActivity extends AppCompatActivity {
                     return;
                 }
 
+                //get country currency code
+                currency1 = spinnerFirstAmount.getSelectedItem().toString();
+                currency2 = spinnerSecondAmount.getSelectedItem().toString();
+
+                currency1 = currency1.substring(0,3);
+                currency2 = currency2.substring(0,3);
+
                 RetrofitInterface retrofitInterface = RetrofitBuilder.getRetrofitInstance().create(RetrofitInterface.class);
                 //get conversion rates using api
-                Call<JsonObject> call = retrofitInterface.getExchangeCurrency(spinnerFirstAmount.getSelectedItem().toString());
+                Call<JsonObject> call = retrofitInterface.getExchangeCurrency(currency1);
                 call.enqueue(new Callback<JsonObject>() {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -77,7 +86,7 @@ public class CurrencyConverterActivity extends AppCompatActivity {
                         JsonObject rate = res.getAsJsonObject("conversion_rates");
                         double first = Double.valueOf(firstAmount.getText().toString());
                         //get rate of second spinner
-                        double multiplier = Double.valueOf(rate.get(spinnerSecondAmount.getSelectedItem().toString()).toString());
+                        double multiplier = Double.valueOf(rate.get(currency2).toString());
                         //multiply
                         double result = first * multiplier;
                         //format result

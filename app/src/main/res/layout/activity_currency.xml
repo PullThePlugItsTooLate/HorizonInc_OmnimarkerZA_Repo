@@ -7,7 +7,8 @@
     tools:context=".CurrencyConverterActivity"
     android:background="@drawable/pop_bg">
 
-    <Spinner
+
+    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
         android:id="@+id/spinnerSecondAmount"
         android:layout_width="120dp"
         android:layout_height="48dp"
@@ -61,7 +62,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.484" />
 
-    <Spinner
+
+    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
         android:id="@+id/spinnerFirstAmount"
         android:layout_width="120dp"
         android:layout_height="48dp"
