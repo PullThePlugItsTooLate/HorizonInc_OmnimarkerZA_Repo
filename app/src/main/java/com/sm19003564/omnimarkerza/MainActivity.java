@@ -22,7 +22,7 @@ import java.nio.file.Files;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btnLandmarks, btnFavourites, btnSettings, btnSafetyInfo, btnCurrencyConverter, btnWeather, btnProfile, btnMapBox;
+    Button btnLandmarks, btnSettings, btnSafetyInfo, btnCurrencyConverter, btnWeather, btnProfile, btnMapBox;
     ImageView iv_CurrencyConverter, iv_Profile, iv_Settings, iv_SafetyInformation, iv_Maps;
     TextView tvMeasure;
     Settings settings;

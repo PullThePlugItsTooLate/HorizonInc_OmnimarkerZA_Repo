@@ -7,8 +7,13 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.Editable;
@@ -137,6 +142,20 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
     private int circleRadius = RADIUS_SEEKBAR_MAX / 2;
     private TextView circleRadiusTextView;
 
+    //Favourites
+    private FavouritePlace newFavouritePlace;
+    DatabaseReference favouritesRef = database.getReference(FirebaseAuth.getInstance().getCurrentUser().getUid());
+    ArrayList<FavouritePlace> lstFavouritePlaces;
+    ArrayList<CarmenFeature> lstAddFavouritePlaces;
+    CarmenFeature favP1;
+    CarmenFeature favP2;
+    CarmenFeature favP3;
+    CarmenFeature favP4;
+    CarmenFeature favP5;
+    CarmenFeature favP6;
+    CarmenFeature favP7;
+    CarmenFeature favP8;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -219,6 +238,18 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                 //selectedLocationTextView.setText(String.format(getString(R.string.selected_place_info), carmenFeature.toJson()));
 
                 pickerRouter(new LatLng(carmenFeature.center().latitude(), carmenFeature.center().longitude()));
+                newFavouritePlace = new FavouritePlace(
+                        carmenFeature.text(),
+                        carmenFeature.placeName(),
+                        carmenFeature.address(),
+                        carmenFeature.id(),
+                        carmenFeature.center().latitude(),
+                        carmenFeature.center().longitude());
+
+                favouritesRef.child("FavouritePlaceData").push().setValue(newFavouritePlace);
+                Toast.makeText(MapboxActivity.this, "Success! You have a new Favourite Place", Toast.LENGTH_SHORT).show();
+                addUserLocations();
+
             }
         }
 
@@ -262,9 +293,10 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
 
                 addDestinationIconSymbolLayer(style);
 
+                addUserLocations();
                 initSearchFab();
 
-                addUserLocations();
+
 
                 // Add the symbol layer icon to map for future use
                 style.addImage(symbolIconId, BitmapFactory.decodeResource(
@@ -413,19 +445,158 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
     }
 
     private void initSearchFab() {
+
         findViewById(R.id.fab_location_search).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new PlaceAutocomplete.IntentBuilder()
-                        .accessToken(Mapbox.getAccessToken() != null ? Mapbox.getAccessToken() : getString(R.string.access_token))
-                        .placeOptions(PlaceOptions.builder()
-                                .backgroundColor(Color.parseColor("#EEEEEE"))
-                                .limit(10)
-                                .addInjectedFeature(hospital)
-                                .addInjectedFeature(college)
-                                .build(PlaceOptions.MODE_CARDS))
-                        .build(MapboxActivity.this);
-                startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE);
+                addUserLocations();
+                if (lstAddFavouritePlaces != null) {
+                    switch(3) {
+                        case 1:
+                            Intent intent = new PlaceAutocomplete.IntentBuilder()
+                                    .accessToken(Mapbox.getAccessToken() != null ? Mapbox.getAccessToken() : getString(R.string.access_token))
+                                    .placeOptions(PlaceOptions.builder()
+                                            .backgroundColor(Color.parseColor("#EEEEEE")).country("ZA")
+                                            .limit(10)
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(0))
+                                            .build(PlaceOptions.MODE_CARDS))
+                                    .build(MapboxActivity.this);
+                            startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE);
+                            break;
+                        case 2:
+
+                            Intent intent2 = new PlaceAutocomplete.IntentBuilder()
+                                    .accessToken(Mapbox.getAccessToken() != null ? Mapbox.getAccessToken() : getString(R.string.access_token))
+                                    .placeOptions(PlaceOptions.builder()
+                                            .backgroundColor(Color.parseColor("#EEEEEE")).country("ZA")
+                                            .limit(10)
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(0))
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(1))
+                                            .build(PlaceOptions.MODE_CARDS))
+                                    .build(MapboxActivity.this);
+                            startActivityForResult(intent2, REQUEST_CODE_AUTOCOMPLETE);
+                            break;
+                        case 3:
+
+                            Intent intent3 = new PlaceAutocomplete.IntentBuilder()
+                                    .accessToken(Mapbox.getAccessToken() != null ? Mapbox.getAccessToken() : getString(R.string.access_token))
+                                    .placeOptions(PlaceOptions.builder()
+                                            .backgroundColor(Color.parseColor("#EEEEEE")).country("ZA")
+                                            .limit(10)
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(0))
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(1))
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(2))
+                                            .build(PlaceOptions.MODE_CARDS))
+                                    .build(MapboxActivity.this);
+                            startActivityForResult(intent3, REQUEST_CODE_AUTOCOMPLETE);
+                            break;
+                        case 4:
+
+                            Intent intent4 = new PlaceAutocomplete.IntentBuilder()
+                                    .accessToken(Mapbox.getAccessToken() != null ? Mapbox.getAccessToken() : getString(R.string.access_token))
+                                    .placeOptions(PlaceOptions.builder()
+                                            .backgroundColor(Color.parseColor("#EEEEEE")).country("ZA")
+                                            .limit(10)
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(0))
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(1))
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(2))
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(3))
+                                            .build(PlaceOptions.MODE_CARDS))
+                                    .build(MapboxActivity.this);
+                            startActivityForResult(intent4, REQUEST_CODE_AUTOCOMPLETE);
+                            break;
+                        case 5:
+
+                            Intent intent5 = new PlaceAutocomplete.IntentBuilder()
+                                    .accessToken(Mapbox.getAccessToken() != null ? Mapbox.getAccessToken() : getString(R.string.access_token))
+                                    .placeOptions(PlaceOptions.builder()
+                                            .backgroundColor(Color.parseColor("#EEEEEE")).country("ZA")
+                                            .limit(10)
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(0))
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(1))
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(2))
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(3))
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(4))
+                                            .build(PlaceOptions.MODE_CARDS))
+                                    .build(MapboxActivity.this);
+                            startActivityForResult(intent5, REQUEST_CODE_AUTOCOMPLETE);
+                            break;
+                        case 6:
+
+                            Intent intent6 = new PlaceAutocomplete.IntentBuilder()
+                                    .accessToken(Mapbox.getAccessToken() != null ? Mapbox.getAccessToken() : getString(R.string.access_token))
+                                    .placeOptions(PlaceOptions.builder()
+                                            .backgroundColor(Color.parseColor("#EEEEEE")).country("ZA")
+                                            .limit(10)
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(0))
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(1))
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(2))
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(3))
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(4))
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(5))
+                                            .build(PlaceOptions.MODE_CARDS))
+                                    .build(MapboxActivity.this);
+                            startActivityForResult(intent6, REQUEST_CODE_AUTOCOMPLETE);
+                            break;
+                        case 7:
+
+                            Intent intent7 = new PlaceAutocomplete.IntentBuilder()
+                                    .accessToken(Mapbox.getAccessToken() != null ? Mapbox.getAccessToken() : getString(R.string.access_token))
+                                    .placeOptions(PlaceOptions.builder()
+                                            .backgroundColor(Color.parseColor("#EEEEEE")).country("ZA")
+                                            .limit(10)
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(0))
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(1))
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(2))
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(3))
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(4))
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(5))
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(6))
+                                            .build(PlaceOptions.MODE_CARDS))
+                                    .build(MapboxActivity.this);
+                            startActivityForResult(intent7, REQUEST_CODE_AUTOCOMPLETE);
+                            break;
+                        case 8:
+
+                            Intent intent8 = new PlaceAutocomplete.IntentBuilder()
+                                    .accessToken(Mapbox.getAccessToken() != null ? Mapbox.getAccessToken() : getString(R.string.access_token))
+                                    .placeOptions(PlaceOptions.builder()
+                                            .backgroundColor(Color.parseColor("#EEEEEE")).country("ZA")
+                                            .limit(10)
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(0))
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(1))
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(2))
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(3))
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(4))
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(5))
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(6))
+                                            .addInjectedFeature(lstAddFavouritePlaces.get(7))
+                                            .build(PlaceOptions.MODE_CARDS))
+                                    .build(MapboxActivity.this);
+                            startActivityForResult(intent8, REQUEST_CODE_AUTOCOMPLETE);
+                            break;
+                        default:
+                            Toast.makeText(MapboxActivity.this, "not calling search", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    findViewById(R.id.fab_location_search).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new PlaceAutocomplete.IntentBuilder()
+                                    .accessToken(Mapbox.getAccessToken() != null ? Mapbox.getAccessToken() : getString(R.string.access_token))
+                                    .placeOptions(PlaceOptions.builder()
+                                            .backgroundColor(Color.parseColor("#EEEEEE")).country("ZA")
+                                            .limit(10)
+                                            .addInjectedFeature(hospital)
+                                            .addInjectedFeature(college)
+                                            .addInjectedFeature(favP1)
+                                            .build(PlaceOptions.MODE_CARDS))
+                                    .build(MapboxActivity.this);
+                            startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE);
+                        }
+                    });
+                }
             }
         });
     }
@@ -433,7 +604,7 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
     private void addUserLocations() {
         hospital = CarmenFeature.builder().text("Core Medical Centre")
                 .geometry(Point.fromLngLat(31.030243117108757, -29.794697509199565))
-                .placeName("20 Gainsborough Dr, Athlone, Durban North, 4051")
+                .address("20 Gainsborough Dr, Athlone, Durban North, 4051")
                 .id("core-med-cen")
                 .properties(new JsonObject())
                 .build();
@@ -444,6 +615,38 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                 .id("iie-vc-dbn")
                 .properties(new JsonObject())
                 .build();
+
+        lstFavouritePlaces = new ArrayList<FavouritePlace>();
+
+
+
+        favouritesRef.child("FavouritePlaceData").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataInfo: snapshot.getChildren()){
+
+                    lstFavouritePlaces.add(dataInfo.getValue(FavouritePlace.class));
+                    favP1 = CarmenFeature.builder()
+                            .text(dataInfo.getValue(FavouritePlace.class).getText())
+                            .placeName(dataInfo.getValue(FavouritePlace.class).getPlaceName())
+                            .address(dataInfo.getValue(FavouritePlace.class).getAddress())
+                            .geometry(Point.fromLngLat(dataInfo.getValue(FavouritePlace.class).getLongitude(), dataInfo.getValue(FavouritePlace.class).getLatitude()))
+                            .id(dataInfo.getValue(FavouritePlace.class).getId())
+                            .properties(new JsonObject())
+                            .build();
+
+                }
+                Toast.makeText(MapboxActivity.this, lstFavouritePlaces.size() + "size", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(MapboxActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+
     }
 
     private void setUpSource(@NonNull Style loadedMapStyle) {
