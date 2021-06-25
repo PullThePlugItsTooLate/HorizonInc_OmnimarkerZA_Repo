@@ -18,30 +18,33 @@
 
     <Button
         android:id="@+id/go_to_picker_button"
-        android:layout_width="228dp"
+        android:layout_width="161dp"
         android:layout_height="48dp"
-        android:layout_gravity="center"
+        android:background="@drawable/rounded_button_active"
         android:text="@string/go_to_picker_activity"
-        android:visibility="invisible"
-        mapbox:layout_constraintBottom_toBottomOf="parent"
-        mapbox:layout_constraintEnd_toEndOf="parent"
-        mapbox:layout_constraintStart_toStartOf="parent"
-        mapbox:layout_constraintTop_toTopOf="@+id/mapView"
-        mapbox:layout_constraintVertical_bias="0.050000012" />
-
-    <Button
-        android:id="@+id/startButton"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:background="@color/mapboxGrayLight"
-        android:enabled="false"
-        android:text="Start navigation"
         android:textColor="@color/mapboxWhite"
         mapbox:layout_constraintBottom_toBottomOf="parent"
+        mapbox:layout_constraintEnd_toEndOf="parent"
+        mapbox:layout_constraintHorizontal_bias="0.86"
         mapbox:layout_constraintStart_toStartOf="parent"
         mapbox:layout_constraintTop_toTopOf="parent"
         mapbox:layout_constraintVertical_bias="0.95" />
+
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="161dp"
+        android:layout_height="48dp"
+        android:background="@drawable/rounded_button_deactive"
+        android:enabled="false"
+        android:text="@string/start_navigation"
+        android:textColor="@color/mapboxWhite"
+        mapbox:layout_constraintBottom_toBottomOf="parent"
+        mapbox:layout_constraintEnd_toEndOf="parent"
+        mapbox:layout_constraintHorizontal_bias="0.14"
+        mapbox:layout_constraintStart_toStartOf="parent"
+        mapbox:layout_constraintTop_toTopOf="parent"
+        mapbox:layout_constraintVertical_bias="0.95" />
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline9"
@@ -90,10 +93,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/circle_radius_textview"
-        app:layout_editor_absoluteX="8dp"
         mapbox:layout_constraintBottom_toBottomOf="parent"
+        mapbox:layout_constraintEnd_toEndOf="parent"
+        mapbox:layout_constraintStart_toStartOf="parent"
         mapbox:layout_constraintTop_toTopOf="parent"
-        mapbox:layout_constraintVertical_bias="0.01999998" />
+        mapbox:layout_constraintVertical_bias="0.86" />
 
     <Spinner
         android:id="@+id/circle_units_spinner"
@@ -114,12 +118,12 @@
         android:id="@+id/selected_location_info_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="HELLO"
+        android:visibility="invisible"
         mapbox:layout_constraintBottom_toBottomOf="parent"
         mapbox:layout_constraintEnd_toEndOf="parent"
         mapbox:layout_constraintStart_toStartOf="parent"
         mapbox:layout_constraintTop_toTopOf="parent"
-        mapbox:layout_constraintVertical_bias="0.8" />
+        mapbox:layout_constraintVertical_bias="0.19999999" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_location_search"
@@ -127,13 +131,14 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
-        android:layout_marginEnd="24dp"
-        android:tint="@android:color/white"
         android:backgroundTint="@color/mapboxBlue"
         android:src="@drawable/ic_magnify"
+        android:tint="@android:color/white"
         mapbox:layout_constraintBottom_toBottomOf="parent"
         mapbox:layout_constraintEnd_toEndOf="parent"
+        mapbox:layout_constraintHorizontal_bias="1.0"
+        mapbox:layout_constraintStart_toStartOf="parent"
         mapbox:layout_constraintTop_toTopOf="parent"
-        mapbox:layout_constraintVertical_bias="0.97" />
+        mapbox:layout_constraintVertical_bias="0.120000005" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

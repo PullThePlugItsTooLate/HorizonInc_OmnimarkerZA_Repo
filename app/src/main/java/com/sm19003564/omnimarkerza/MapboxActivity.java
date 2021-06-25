@@ -330,6 +330,10 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                 Toast.makeText(MapboxActivity.this,
                         getString(R.string.polygon_circle_transformation_click_map_instruction),
                         Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(MapboxActivity.this,
+                        "Use slider to change radius size",
+                        Toast.LENGTH_LONG).show();
             }
 
         });
@@ -392,8 +396,14 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
         } else {
             circleUnit = UNIT_KILOMETERS;
         }
-        Point lcp = Point.fromLngLat(locationComponent.getLastKnownLocation().getLongitude(), locationComponent.getLastKnownLocation().getLatitude());
-        drawPolygonCircle(lastClickPoint != null ? lastClickPoint : lcp);
+        try {
+            Point lcp = Point.fromLngLat(locationComponent.getLastKnownLocation().getLongitude(), locationComponent.getLastKnownLocation().getLatitude());
+            drawPolygonCircle(lastClickPoint != null ? lastClickPoint : lcp);
+        }
+        catch (Exception e) {
+
+        }
+
     }
 
     private void initSearchFab() {
@@ -470,7 +480,7 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
 
         getRoute(originPoint, destinationPoint);
         button.setEnabled(true);
-        button.setBackgroundResource(R.color.mapboxBlue);
+        button.setBackgroundResource(R.drawable.rounded_button_active);
 
         //POI Turf
         mapboxMap.easeCamera(CameraUpdateFactory.newLatLng(point));
@@ -492,7 +502,7 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
 
         getRoute(originPoint, destinationPoint);
         button.setEnabled(true);
-        button.setBackgroundResource(R.color.mapboxBlue);
+        button.setBackgroundResource(R.drawable.rounded_button_active);
 
         //POI Turf
         mapboxMap.easeCamera(CameraUpdateFactory.newLatLng(point));
