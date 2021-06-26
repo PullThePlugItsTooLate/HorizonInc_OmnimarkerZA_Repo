@@ -69,4 +69,9 @@ public class FavouritePlace {
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
+
+    @Override
+    public String toString() {
+        return text;
+    }
 }

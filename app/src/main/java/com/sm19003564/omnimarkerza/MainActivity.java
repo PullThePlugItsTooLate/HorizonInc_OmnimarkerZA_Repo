@@ -22,8 +22,7 @@ import java.nio.file.Files;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btnLandmarks, btnSettings, btnSafetyInfo, btnCurrencyConverter, btnWeather, btnProfile, btnMapBox;
-    ImageView iv_CurrencyConverter, iv_Profile, iv_Settings, iv_SafetyInformation, iv_Maps;
+    ImageView iv_CurrencyConverter, iv_Profile, iv_Settings, iv_SafetyInformation, iv_Maps, iv_Favourites;
     TextView tvMeasure;
     Settings settings;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -35,20 +34,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-       // btnLandmarks = findViewById(R.id.btnMenuLandmarks);
-       // btnFavourites = findViewById(R.id.btnMenuFavourite);
-       // btnSettings = findViewById(R.id.btnMenuSettings);
-        //btnSafetyInfo = findViewById(R.id.btnMenuSafetyInfo);
-        //btnCurrencyConverter = findViewById(R.id.btnMenuCurrency);
-//        btnWeather = findViewById(R.id.btnMenuWeather);
-        //btnProfile = findViewById(R.id.btnMenuProfile);
 
         iv_CurrencyConverter = findViewById(R.id.iv_CurrencyConverter);
         iv_Profile = findViewById(R.id.iv_Profile);
         iv_Settings = findViewById(R.id.iv_Settings);
         iv_SafetyInformation = findViewById(R.id.iv_SafetyInformation);
         iv_Maps = findViewById(R.id.iv_Maps);
-       // btnMapBox = findViewById(R.id.btnMapBox);
+        iv_Favourites = findViewById(R.id.iv_Favourites);
 
         tvMeasure = findViewById(R.id.tvMeasure);
         settings = new Settings();
@@ -113,6 +105,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, MapboxActivity.class);
+                startActivity(i);
+            }
+        });
+
+        iv_Favourites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, FavouritePlacesActivity.class);
                 startActivity(i);
             }
         });
