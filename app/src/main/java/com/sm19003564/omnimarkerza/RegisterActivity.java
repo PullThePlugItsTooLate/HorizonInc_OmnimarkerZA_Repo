@@ -16,6 +16,9 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.SignInMethodQueryResult;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Files;
 
@@ -60,35 +63,49 @@ public class RegisterActivity extends AppCompatActivity {
                                 if(task.isSuccessful())
                                 {
                                     Toast.makeText(RegisterActivity.this, "User Registered", Toast.LENGTH_SHORT).show();
+                                    mFirebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                            if(task.isSuccessful())
+                                            {
+
+                                                Toast.makeText(RegisterActivity.this, "Login for " + mFirebaseAuth.getCurrentUser().getEmail() + " successful", Toast.LENGTH_SHORT).show();
+
+                                                Intent i = new Intent(RegisterActivity.this, MainActivity.class);
+                                                startActivity(i);
+                                            }
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+
+                                            Toast.makeText(RegisterActivity.this, "User Login Failed", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                                 }
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
+                                //check if user email exists
+                                mFirebaseAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull @NotNull Task<SignInMethodQueryResult> task) {
 
-                                Toast.makeText(RegisterActivity.this, "User Registration Failed", Toast.LENGTH_SHORT).show();
+                                        if (task.getResult().getSignInMethods().size() == 0){
+                                            Toast.makeText(RegisterActivity.this, "User Registration Failed: Unknown Error", Toast.LENGTH_SHORT).show();
+                                        }
+                                        else{
+                                            Toast.makeText(RegisterActivity.this, "User Registration Failed: A User With This Email Already Exists ", Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                });
+
                             }
                         });
                     }
 
-                mFirebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful())
-                        {
 
-                            Toast.makeText(RegisterActivity.this, "Login for " + mFirebaseAuth.getCurrentUser().getEmail() + " successful", Toast.LENGTH_SHORT).show();
-
-                            Intent i = new Intent(RegisterActivity.this, MainActivity.class);
-                            startActivity(i);
-                        }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(RegisterActivity.this, "User Login Failed", Toast.LENGTH_SHORT).show();
-                    }
-                });
 
             }
         });
