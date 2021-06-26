@@ -43,14 +43,14 @@ public class WeatherActivity extends AppCompatActivity {
         etCountry = findViewById(R.id.etCountry);
         tvResult = findViewById(R.id.tvResult);
         searchView = findViewById(R.id.SearchBar);
-        tvHeading = findViewById(R.id.tvHeading);
+       /* tvHeading = findViewById(R.id.tvHeading);
         tvFeelsLike = findViewById(R.id.tvFeelsLike);
         tvHumidity = findViewById(R.id.tvHumidity);
         tvDescription = findViewById(R.id.tvDescription);
         tvWind = findViewById(R.id.tvWind);
         tvCloud = findViewById(R.id.tvCloud);
         tvPressure = findViewById(R.id.tvPressure);
-        tvTemp = findViewById(R.id.tvTemp);
+        tvTemp = findViewById(R.id.tvTemp); */
 
 
         searchView.setOnClickListener(new View.OnClickListener() {
