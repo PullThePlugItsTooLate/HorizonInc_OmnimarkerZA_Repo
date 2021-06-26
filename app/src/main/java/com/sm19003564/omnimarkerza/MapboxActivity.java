@@ -472,6 +472,9 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
         findViewById(R.id.fab_location_search).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                PlaceAutocomplete.clearRecentHistory(MapboxActivity.this);
+
                 addUserLocations();
                 if (counter != 0) {
                     switch(counter) {
