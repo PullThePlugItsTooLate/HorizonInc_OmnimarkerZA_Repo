@@ -79,7 +79,7 @@ public class ProfileChangeUsernamePopActivity extends Activity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful())
                         {
-                            Toast.makeText(getApplicationContext(), "Email changed to" + newEmail, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Email changed to " + newEmail, Toast.LENGTH_SHORT).show();
                             //get email from firebase
                             currentEmail = mFirebaseAuth.getCurrentUser().getEmail();
 
