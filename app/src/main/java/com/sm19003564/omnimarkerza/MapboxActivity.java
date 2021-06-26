@@ -250,8 +250,8 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                         carmenFeature.center().longitude());
 
                 favouritesRef.child("FavouritePlaceData").push().setValue(newFavouritePlace);
-                Toast.makeText(MapboxActivity.this, "Success! You have a new Favourite Place", Toast.LENGTH_SHORT).show();
                 addUserLocations();
+                Toast.makeText(MapboxActivity.this, "Success! You have a new Favourite Place", Toast.LENGTH_SHORT).show();
 
             }
         }
@@ -448,7 +448,7 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
     }
 
     private void initSearchFab() {
-
+        addUserLocations();
         findViewById(R.id.fab_location_search).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -592,7 +592,6 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                                             .backgroundColor(Color.parseColor("#EEEEEE")).country("ZA")
                                             .limit(10)
                                             .addInjectedFeature(hospital)
-                                            .addInjectedFeature(college)
                                             .build(PlaceOptions.MODE_CARDS))
                                     .build(MapboxActivity.this);
                             startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE);
