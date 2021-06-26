@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FavouritePlaces">
+    tools:context=".FavouritePlacesActivity">
 
     <Button
         android:id="@+id/remove_favourite_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Remove Favourite"
+        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -30,12 +31,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.824" />
 
-    <Spinner
+    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
         android:id="@+id/favourites_spinner"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.465" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

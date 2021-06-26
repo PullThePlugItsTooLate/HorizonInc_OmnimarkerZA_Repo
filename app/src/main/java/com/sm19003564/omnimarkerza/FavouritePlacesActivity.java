@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -24,10 +26,12 @@ public class FavouritePlacesActivity extends AppCompatActivity {
     private Button btn_remove_favourite;
     private Button btn_remove_all_favourites;
     private Spinner spin_favourites;
+    private FavouritePlace favouritePlaceSelected;
 
     //Pull favourite places data
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference favouritePlacesRef = database.getReference(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +58,64 @@ public class FavouritePlacesActivity extends AppCompatActivity {
             }
         });
 
-        ArrayAdapter<FavouritePlace> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, lstFavouritePlaces);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<FavouritePlace> adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, lstFavouritePlaces);
+        //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spin_favourites.setAdapter(adapter);
+
+
+        spin_favourites.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                btn_remove_favourite.setEnabled(true);
+                favouritePlaceSelected = (FavouritePlace) adapterView.getSelectedItem();
+                Toast.makeText(FavouritePlacesActivity.this, i + " int", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Toast.makeText(FavouritePlacesActivity.this, "hello", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btn_remove_favourite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                favouritePlacesRef.child("FavouritePlaceData").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot dataInfo: snapshot.getChildren()){
+                            FavouritePlace checkFP = dataInfo.getValue(FavouritePlace.class);
+                            if (favouritePlaceSelected.getLatitude() == checkFP.getLatitude()
+                                    && favouritePlaceSelected.getLongitude() == checkFP.getLongitude()) {
+                                dataInfo.getRef().removeValue();
+                            }
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(FavouritePlacesActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+        btn_remove_all_favourites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                favouritePlacesRef.child("FavouritePlaceData").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot dataInfo: snapshot.getChildren()){
+                            dataInfo.getRef().removeValue();
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(FavouritePlacesActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
     }
 }
