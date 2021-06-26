@@ -156,6 +156,7 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
     CarmenFeature favP7;
     CarmenFeature favP8;
     int counter = 0;
+    int counterWarning = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -249,10 +250,29 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                         carmenFeature.center().latitude(),
                         carmenFeature.center().longitude());
 
-                favouritesRef.child("FavouritePlaceData").push().setValue(newFavouritePlace);
-                addUserLocations();
-                Toast.makeText(MapboxActivity.this, "Success! You have a new Favourite Place", Toast.LENGTH_SHORT).show();
+                favouritesRef.child("FavouritePlaceData").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        counterWarning = 0;
 
+                        for (DataSnapshot dataInfo: snapshot.getChildren()){
+                            counterWarning ++;
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(MapboxActivity.this, error.getMessage() + "From reading fav data in act result", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                if (counterWarning == 8) {
+                    Toast.makeText(MapboxActivity.this, "Maximum Favourite Places reached", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MapboxActivity.this, "Go to favourites icon to delete unused favourites", Toast.LENGTH_SHORT).show();
+                } else if (counterWarning < 8){
+                    favouritesRef.child("FavouritePlaceData").push().setValue(newFavouritePlace);
+                    Toast.makeText(MapboxActivity.this, "Success! You have a new Favourite Place", Toast.LENGTH_SHORT).show();
+                    addUserLocations();
+                }
             }
         }
 
