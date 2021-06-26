@@ -113,7 +113,7 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
 
     //Settings
     Settings settings;
-    private String measure;
+    private String measure = "metric";
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference settingsRef = database.getReference(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
@@ -183,11 +183,13 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                 for (DataSnapshot dataInfo: snapshot.getChildren()){
                     settings = dataInfo.getValue(Settings.class);
                 }
-                if (settings.isMetric()) {
-                    measure = "metric";
-                } else {
-                    if (settings.isImperial()){
-                        measure = "imperial";
+                if (settings != null) {
+                    if (settings.isMetric()) {
+                        measure = "metric";
+                    } else {
+                        if (settings.isImperial()){
+                            measure = "imperial";
+                        }
                     }
                 }
             }
