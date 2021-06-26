@@ -22,11 +22,12 @@ import java.nio.file.Files;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageView iv_CurrencyConverter, iv_Profile, iv_Settings, iv_SafetyInformation, iv_Maps, iv_Favourites;
+    ImageView iv_CurrencyConverter, iv_Profile, iv_Settings, iv_SafetyInformation, iv_Maps, iv_Favourites, iv_Weather;
     TextView tvMeasure;
     Settings settings;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference settingsRef = database.getReference(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
 
 
     @Override
@@ -41,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
         iv_SafetyInformation = findViewById(R.id.iv_SafetyInformation);
         iv_Maps = findViewById(R.id.iv_Maps);
         iv_Favourites = findViewById(R.id.iv_Favourites);
+        iv_Weather = findViewById(R.id.iv_Weather);
+
 
         tvMeasure = findViewById(R.id.tvMeasure);
         settings = new Settings();
@@ -64,6 +67,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        iv_Weather.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, WeatherActivity.class);
+                startActivity(i);
             }
         });
 
