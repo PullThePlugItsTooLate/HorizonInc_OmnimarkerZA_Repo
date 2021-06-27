@@ -72,7 +72,7 @@ public class FavouritePlacesActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (favouritePlaceSelected != null) {
-                    favouritePlacesRef.child("FavouritePlaceData").addValueEventListener(new ValueEventListener() {
+                    favouritePlacesRef.child("FavouritePlaceData").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             for (DataSnapshot dataInfo: snapshot.getChildren()){
@@ -86,6 +86,8 @@ public class FavouritePlacesActivity extends AppCompatActivity {
                             Intent i = new Intent(FavouritePlacesActivity.this, MainActivity.class);
                             startActivity(i);
                             Toast.makeText(FavouritePlacesActivity.this, favouritePlaceSelected.getText() + " has been removed from your favourites", Toast.LENGTH_SHORT).show();
+                            finish();
+                            finishActivity(0);
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {

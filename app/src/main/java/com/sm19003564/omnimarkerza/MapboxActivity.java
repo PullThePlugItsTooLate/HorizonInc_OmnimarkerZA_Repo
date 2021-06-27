@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 // classes needed to initialize map
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -170,11 +171,12 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
         selectedLocationTextView = findViewById(R.id.selected_location_info_textview);
 
         // Show the button and set the OnClickListener()
-        Button goToPickerActivityButton = findViewById(R.id.go_to_picker_button);
-        goToPickerActivityButton.setVisibility(View.VISIBLE);
+        FloatingActionButton goToPickerActivityButton = findViewById(R.id.fab_favourite_places);
+        //goToPickerActivityButton.setVisibility(View.VISIBLE);
         goToPickerActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(MapboxActivity.this, "Click on the green check to add a place to your favourites", Toast.LENGTH_LONG).show();
                 goToPickerActivity();
             }
         });
@@ -250,13 +252,23 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                         carmenFeature.center().latitude(),
                         carmenFeature.center().longitude());
 
-                favouritesRef.child("FavouritePlaceData").addValueEventListener(new ValueEventListener() {
+                favouritesRef.child("FavouritePlaceData").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         counterWarning = 0;
 
                         for (DataSnapshot dataInfo: snapshot.getChildren()){
                             counterWarning ++;
+                        }
+
+                        if (counterWarning == 8) {
+                            Toast.makeText(MapboxActivity.this, "Maximum Favourite Places reached", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MapboxActivity.this, "Go to favourites icon to delete unused favourites", Toast.LENGTH_SHORT).show();
+                        } else if (counterWarning < 8){
+                            favouritesRef.child("FavouritePlaceData").push().setValue(newFavouritePlace);
+                            Toast.makeText(MapboxActivity.this, "Success! You have a new Favourite Place", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MapboxActivity.this, "Tap on the search icon to view it", Toast.LENGTH_SHORT).show();
+                            addUserLocations();
                         }
                     }
                     @Override
@@ -265,14 +277,7 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                     }
                 });
 
-                if (counterWarning == 8) {
-                    Toast.makeText(MapboxActivity.this, "Maximum Favourite Places reached", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(MapboxActivity.this, "Go to favourites icon to delete unused favourites", Toast.LENGTH_SHORT).show();
-                } else if (counterWarning < 8){
-                    favouritesRef.child("FavouritePlaceData").push().setValue(newFavouritePlace);
-                    Toast.makeText(MapboxActivity.this, "Success! You have a new Favourite Place", Toast.LENGTH_SHORT).show();
-                    addUserLocations();
-                }
+
             }
         }
 
@@ -602,7 +607,8 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                             startActivityForResult(intent8, REQUEST_CODE_AUTOCOMPLETE);
                             break;
                         default:
-                            Toast.makeText(MapboxActivity.this, "not calling search", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MapboxActivity.this, "You need to remove some favourites first", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MapboxActivity.this, "Go to favourites in the Main Menu to do so", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else {
