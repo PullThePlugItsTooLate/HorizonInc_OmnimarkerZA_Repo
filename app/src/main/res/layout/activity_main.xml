@@ -184,7 +184,7 @@
         android:shadowDy="4"
         android:shadowRadius="5"
         android:singleLine="false"
-        android:text="NAVIGATION"
+        android:text="LANDMARKS"
         android:textColor="#FFFFFF"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
