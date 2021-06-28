@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+//Widget imports
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,16 +17,15 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
-    EditText emailId, passwordValue;
-    String email, password;
-    Button btnSignIn;
-    TextView tvSignUp;
-    private FirebaseAuth mFirebaseAuth;
+    private EditText emailId, passwordValue;
+    private String email, password;
+    private Button btnSignIn;
+    private TextView tvSignUp;
 
+    private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     @Override
@@ -44,37 +44,32 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                    email = emailId.getText().toString().trim();
-                    password = passwordValue.getText().toString().trim();
+                email = emailId.getText().toString().trim();
+                password = passwordValue.getText().toString().trim();
 
-                    if (email.isEmpty() || password.isEmpty())
-                    {
-                        Toast.makeText(LoginActivity.this, "Please fill in the blank fields", Toast.LENGTH_SHORT).show();
-                    } else
-                        {
-
-                            mFirebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if(task.isSuccessful())
-                                    {
-
-                                        Toast.makeText(LoginActivity.this, "Login for " + mFirebaseAuth.getCurrentUser().getEmail() + " successful", Toast.LENGTH_SHORT).show();
-
-                                        Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                                        startActivity(i);
-                                    }
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(LoginActivity.this, "User Login Failed", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                if (email.isEmpty() || password.isEmpty())
+                {
+                    Toast.makeText(LoginActivity.this, "Please fill in the blank fields", Toast.LENGTH_SHORT).show();
+                } else {
+                    mFirebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful())
+                            {
+                                Toast.makeText(LoginActivity.this, "Login for " + mFirebaseAuth.getCurrentUser().getEmail() + " successful", Toast.LENGTH_SHORT).show();
+                                Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                                startActivity(i);
+                            }
                         }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(LoginActivity.this, "User Login Failed", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
         });
-
 
         tvSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,25 +79,5 @@ public class LoginActivity extends AppCompatActivity {
                 finish(); // this method closes the previous activity to reduce memory usage
             }
         });
-
-
-
-       /* mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
-                if(mFirebaseUser != null){
-                    Toast.makeText(LoginActivity.this, "You are logged in", Toast.LENGTH_SHORT).show();
-                    IntentHelper.openIntent(LoginActivity.this, MainActivity.class);
-                }
-                else{
-                    Toast.makeText(LoginActivity.this, "Please Login", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }; */
-
-
-
     }
 }

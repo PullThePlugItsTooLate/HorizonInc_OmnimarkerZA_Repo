@@ -1,21 +1,20 @@
 package com.sm19003564.omnimarkerza;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
+// Widget imports
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+// Firebase imports
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,7 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class ProfileChangePasswordPopActivity extends Activity {
 
-    //declare
+    // Declaration
     Button changePasswordButton;
     EditText currentPasswordET;
     EditText newPasswordET;
@@ -35,14 +34,13 @@ public class ProfileChangePasswordPopActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_change_password_pop);
 
-        //Initialize
+        // Initialize
         changePasswordButton = (Button) findViewById(R.id.buttonChangePassword);
         currentPasswordET = (EditText) findViewById(R.id.editTextTextPasswordOld);
         newPasswordET = (EditText) findViewById(R.id.editTextTextPasswordNew);
         mFirebaseAuth = FirebaseAuth.getInstance();
 
-
-        //Layout settings
+        // Layout settings
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
@@ -57,31 +55,29 @@ public class ProfileChangePasswordPopActivity extends Activity {
         params.y = -20;
         getWindow().setAttributes(params);
 
-
-        //when the button is clicked
+        // When the button is clicked
         changePasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //check if text boxes are empty
+                // Check if text boxes are empty
                 if ((newPasswordET.getText().toString().trim().length() == 0) || (currentPasswordET.getText().toString().trim().length() == 0)) {
                     Toast.makeText(getApplicationContext(), "Text boxes cannot be empty ", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 newPassword = newPasswordET.getText().toString();
                 currentPassword = currentPasswordET.getText().toString();
-
-
                 String currentEmail = mFirebaseAuth.getCurrentUser().getEmail();
-                //get user
+
+                // Get user
                 FirebaseUser user = mFirebaseAuth.getCurrentUser();
-                AuthCredential credential = EmailAuthProvider
-                        .getCredential(currentEmail, currentPassword);
-                //re-authenticate user
+                AuthCredential credential = EmailAuthProvider.getCredential(currentEmail, currentPassword);
+
+                // Re-authenticate user
                 user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
-                            //update password
+                            // Update password
                             FirebaseUser user = mFirebaseAuth.getCurrentUser();
                             user.updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
@@ -89,7 +85,6 @@ public class ProfileChangePasswordPopActivity extends Activity {
                                     if(task.isSuccessful())
                                     {
                                         Toast.makeText(getApplicationContext(), "Password changed successfully" , Toast.LENGTH_SHORT).show();
-
                                     }
                                     else {
                                         Toast.makeText(getApplicationContext(), "ERROR: please try again" , Toast.LENGTH_SHORT).show();
@@ -98,7 +93,7 @@ public class ProfileChangePasswordPopActivity extends Activity {
                             });
                         }
                         else {
-                            //handle exception
+                            // Handle exception
                             Toast.makeText(getApplicationContext(), "Incorrect Password" , Toast.LENGTH_SHORT).show();
                         }
                     }

@@ -5,11 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+// Widget imports
 import android.widget.Button;
 import android.widget.RadioButton;
-import android.widget.Switch;
 import android.widget.Toast;
-
+// Firebase imports
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class SettingsActivity extends AppCompatActivity {
 
+    // Object declaration
     Button btnAbout;
     Button btnHelp;
     FirebaseAuth mFirebaseAuth;
@@ -53,7 +54,7 @@ public class SettingsActivity extends AppCompatActivity {
                 }
                 if (settings.isMetric()){
                     rbMetric.setChecked(true);
-                }else{
+                } else {
                     if (settings.isImperial()){
                         rbImperial.setChecked(true);
                     }
@@ -70,8 +71,7 @@ public class SettingsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (rbMetric.isChecked()){
                     settings = new Settings(true, false);
-                }
-                else {
+                } else {
                     if (rbImperial.isChecked()){
                         settings = new Settings(false, true);
                     }
@@ -82,6 +82,4 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }

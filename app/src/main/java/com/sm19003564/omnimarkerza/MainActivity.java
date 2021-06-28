@@ -6,19 +6,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+//Widget imports
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+//Firebase imports
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.nio.file.Files;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,13 +26,10 @@ public class MainActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference settingsRef = database.getReference(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         iv_CurrencyConverter = findViewById(R.id.iv_CurrencyConverter);
         iv_Profile = findViewById(R.id.iv_Profile);
@@ -43,11 +38,8 @@ public class MainActivity extends AppCompatActivity {
         iv_Maps = findViewById(R.id.iv_Maps);
         iv_Favourites = findViewById(R.id.iv_Favourites);
         iv_Weather = findViewById(R.id.iv_Weather);
-
-
         tvMeasure = findViewById(R.id.tvMeasure);
         settings = new Settings();
-
 
         settingsRef.child("SettingsData").addValueEventListener(new ValueEventListener() {
             @Override
@@ -109,8 +101,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
-
 
         iv_Maps.setOnClickListener(new View.OnClickListener() {
             @Override

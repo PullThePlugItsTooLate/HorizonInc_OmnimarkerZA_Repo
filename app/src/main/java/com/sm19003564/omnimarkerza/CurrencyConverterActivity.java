@@ -1,12 +1,9 @@
 package com.sm19003564.omnimarkerza;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
+//Widget imports
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,26 +16,24 @@ import com.sm19003564.omnimarkerza.Retrofit.RetrofitBuilder;
 import com.sm19003564.omnimarkerza.Retrofit.RetrofitInterface;
 
 import java.text.DecimalFormat;
-
+//Retrofit imports
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static java.lang.Math.round;
-
 public class CurrencyConverterActivity extends AppCompatActivity {
-    //declare variables
+    //Variable declaration
     Spinner spinnerFirstAmount, spinnerSecondAmount;
     EditText firstAmount;
     TextView secondAmount;
     Button convertButton;
     String currency1, currency2;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_currency);
+
         //Initialization
         spinnerFirstAmount = findViewById(R.id.spinnerFirstAmount);
         spinnerSecondAmount = findViewById(R.id.spinnerSecondAmount);
@@ -77,6 +72,7 @@ public class CurrencyConverterActivity extends AppCompatActivity {
                 currency2 = currency2.substring(0,3);
 
                 RetrofitInterface retrofitInterface = RetrofitBuilder.getRetrofitInstance().create(RetrofitInterface.class);
+
                 //get conversion rates using api
                 Call<JsonObject> call = retrofitInterface.getExchangeCurrency(currency1);
                 call.enqueue(new Callback<JsonObject>() {
@@ -101,8 +97,6 @@ public class CurrencyConverterActivity extends AppCompatActivity {
                     }
                 });
             }
-
-
         });
     }
 }

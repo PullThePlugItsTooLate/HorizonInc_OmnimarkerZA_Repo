@@ -7,24 +7,17 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 // classes needed to initialize map
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,7 +27,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.JsonObject;
-import com.mapbox.api.directions.v5.DirectionsCriteria;
 import com.mapbox.api.geocoding.v5.models.CarmenFeature;
 import com.mapbox.geojson.FeatureCollection;
 import com.mapbox.geojson.LineString;
@@ -47,13 +39,11 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.Style;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
-
 // classes needed to add the location component
 import com.mapbox.android.core.permissions.PermissionsListener;
 import com.mapbox.android.core.permissions.PermissionsManager;
 import com.mapbox.mapboxsdk.location.LocationComponent;
 import com.mapbox.mapboxsdk.location.modes.CameraMode;
-
 // classes needed to add a marker
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.Point;
@@ -78,7 +68,6 @@ import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconOffset;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.visibility;
 import static com.mapbox.turf.TurfConstants.UNIT_KILOMETERS;
 import static com.mapbox.turf.TurfConstants.UNIT_MILES;
-
 // classes to calculate a route
 import com.mapbox.services.android.navigation.ui.v5.NavigationLauncherOptions;
 import com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute;
@@ -89,14 +78,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import android.util.Log;
-
 // classes needed to launch navigation UI
 import android.view.View;
 import android.widget.Button;
 import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher;
 import com.mapbox.turf.TurfMeta;
 import com.mapbox.turf.TurfTransformation;
-
 
 public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallback, MapboxMap.OnMapClickListener, PermissionsListener, AdapterView.OnItemSelectedListener {
     // variables for adding location layer
@@ -131,13 +118,11 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
     private LatLng pickerPointOrigin;
 
     //Point of Interest Turf Circle
-    private static final String TURF_CALCULATION_FILL_LAYER_GEOJSON_SOURCE_ID
-            = "TURF_CALCULATION_FILL_LAYER_GEOJSON_SOURCE_ID";
+    private static final String TURF_CALCULATION_FILL_LAYER_GEOJSON_SOURCE_ID = "TURF_CALCULATION_FILL_LAYER_GEOJSON_SOURCE_ID";
     private static final String TURF_CALCULATION_FILL_LAYER_ID = "TURF_CALCULATION_FILL_LAYER_ID";
     private static final int RADIUS_SEEKBAR_DIFFERENCE = 1;
     private static final int RADIUS_SEEKBAR_MAX = 10;
-    private static final Point DOWNTON_MUNICH_START_LOCATION =
-            Point.fromLngLat(31.1328906235521, -29.643437120518342);
+    private static final Point DOWNTON_MUNICH_START_LOCATION = Point.fromLngLat(31.1328906235521, -29.643437120518342);
     private Point lastClickPoint;
     private String circleUnit = UNIT_KILOMETERS;
     private int circleRadius = RADIUS_SEEKBAR_MAX / 2;
@@ -146,8 +131,6 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
     //Favourites
     private FavouritePlace newFavouritePlace;
     DatabaseReference favouritesRef = database.getReference(FirebaseAuth.getInstance().getCurrentUser().getUid());
-    ArrayList<FavouritePlace> lstFavouritePlaces;
-    ArrayList<CarmenFeature> lstAddFavouritePlaces;
     CarmenFeature favP1;
     CarmenFeature favP2;
     CarmenFeature favP3;
@@ -170,9 +153,8 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
 
         selectedLocationTextView = findViewById(R.id.selected_location_info_textview);
 
-        // Show the button and set the OnClickListener()
+        // Set the OnClickListener()
         FloatingActionButton goToPickerActivityButton = findViewById(R.id.fab_favourite_places);
-        //goToPickerActivityButton.setVisibility(View.VISIBLE);
         goToPickerActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -180,6 +162,7 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                 goToPickerActivity();
             }
         });
+
         settingsRef.child("SettingsData").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -202,8 +185,6 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                 Toast.makeText(MapboxActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
 
     private void goToPickerActivity() {
@@ -237,11 +218,9 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
             // Retrieve the information from the selected location's CarmenFeature
             CarmenFeature carmenFeature = PlacePicker.getPlace(data);
 
-            // Set the TextView text to the entire CarmenFeature. The CarmenFeature
-            // also be parsed through to grab and display certain information such as
-            // its placeName, text, or coordinates.
+            // Carmen Feature is returned, it is then stored in a newFavouritePlace object
+            // in order to store it in firebase
             if (carmenFeature != null) {
-                //selectedLocationTextView.setText(String.format(getString(R.string.selected_place_info), carmenFeature.toJson()));
 
                 pickerRouter(new LatLng(carmenFeature.center().latitude(), carmenFeature.center().longitude()));
                 newFavouritePlace = new FavouritePlace(
@@ -271,13 +250,12 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                             addUserLocations();
                         }
                     }
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                         Toast.makeText(MapboxActivity.this, error.getMessage() + "From reading fav data in act result", Toast.LENGTH_SHORT).show();
                     }
                 });
-
-
             }
         }
 
@@ -288,7 +266,6 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
 
             // Create a new FeatureCollection and add a new Feature to it using selectedCarmenFeature above.
             // Then retrieve and update the source designated for showing a selected location's symbol layer icon
-
             if (mapboxMap != null) {
                 Style style = mapboxMap.getStyle();
                 if (style != null) {
@@ -317,14 +294,11 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                 .withSource(new GeoJsonSource(TURF_CALCULATION_FILL_LAYER_GEOJSON_SOURCE_ID)), new Style.OnStyleLoaded() {
             @Override
             public void onStyleLoaded(@NonNull Style style) {
+
                 enableLocationComponent(style);
-
                 addDestinationIconSymbolLayer(style);
-
                 addUserLocations();
                 initSearchFab();
-
-
 
                 // Add the symbol layer icon to map for future use
                 style.addImage(symbolIconId, BitmapFactory.decodeResource(
@@ -352,10 +326,7 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                 });
 
                 //POI Turf
-
-
                 hideLayers();
-
                 initPolygonCircleFillLayer();
 
                 // Set up the seekbar so that the circle's radius can be adjusted
@@ -380,7 +351,7 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
 
                     @Override
                     public void onStartTrackingTouch(SeekBar seekBar) {
-// Not needed in this example.
+
                     }
 
                     @Override
@@ -390,9 +361,7 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                 });
 
                 mapboxMap.addOnMapClickListener(MapboxActivity.this);
-
                 initDistanceUnitSpinner();
-
                 Toast.makeText(MapboxActivity.this,
                         getString(R.string.polygon_circle_transformation_click_map_instruction),
                         Toast.LENGTH_SHORT).show();
@@ -401,7 +370,6 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                         "Use slider to change radius size",
                         Toast.LENGTH_LONG).show();
             }
-
         });
     }
 
@@ -413,13 +381,16 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
             @Override
             public void onStyleLoaded(@NonNull Style style) {
                 SymbolLayer roadLabelLayer = style.getLayerAs("road-label");
+
                 if (roadLabelLayer != null) {
                     roadLabelLayer.setProperties(visibility(NONE));
                 }
+
                 SymbolLayer transitLabelLayer = style.getLayerAs("transit-label");
                 if (transitLabelLayer != null) {
                     transitLabelLayer.setProperties(visibility(NONE));
                 }
+
                 SymbolLayer roadNumberShieldLayer = style.getLayerAs("road-number-shield");
                 if (roadNumberShieldLayer != null) {
                     roadNumberShieldLayer.setProperties(visibility(NONE));
@@ -495,7 +466,6 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                             startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE);
                             break;
                         case 2:
-
                             Intent intent2 = new PlaceAutocomplete.IntentBuilder()
                                     .accessToken(Mapbox.getAccessToken() != null ? Mapbox.getAccessToken() : getString(R.string.access_token))
                                     .placeOptions(PlaceOptions.builder()
@@ -508,7 +478,6 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                             startActivityForResult(intent2, REQUEST_CODE_AUTOCOMPLETE);
                             break;
                         case 3:
-
                             Intent intent3 = new PlaceAutocomplete.IntentBuilder()
                                     .accessToken(Mapbox.getAccessToken() != null ? Mapbox.getAccessToken() : getString(R.string.access_token))
                                     .placeOptions(PlaceOptions.builder()
@@ -522,7 +491,6 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                             startActivityForResult(intent3, REQUEST_CODE_AUTOCOMPLETE);
                             break;
                         case 4:
-
                             Intent intent4 = new PlaceAutocomplete.IntentBuilder()
                                     .accessToken(Mapbox.getAccessToken() != null ? Mapbox.getAccessToken() : getString(R.string.access_token))
                                     .placeOptions(PlaceOptions.builder()
@@ -537,7 +505,6 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                             startActivityForResult(intent4, REQUEST_CODE_AUTOCOMPLETE);
                             break;
                         case 5:
-
                             Intent intent5 = new PlaceAutocomplete.IntentBuilder()
                                     .accessToken(Mapbox.getAccessToken() != null ? Mapbox.getAccessToken() : getString(R.string.access_token))
                                     .placeOptions(PlaceOptions.builder()
@@ -553,7 +520,6 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                             startActivityForResult(intent5, REQUEST_CODE_AUTOCOMPLETE);
                             break;
                         case 6:
-
                             Intent intent6 = new PlaceAutocomplete.IntentBuilder()
                                     .accessToken(Mapbox.getAccessToken() != null ? Mapbox.getAccessToken() : getString(R.string.access_token))
                                     .placeOptions(PlaceOptions.builder()
@@ -570,7 +536,6 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                             startActivityForResult(intent6, REQUEST_CODE_AUTOCOMPLETE);
                             break;
                         case 7:
-
                             Intent intent7 = new PlaceAutocomplete.IntentBuilder()
                                     .accessToken(Mapbox.getAccessToken() != null ? Mapbox.getAccessToken() : getString(R.string.access_token))
                                     .placeOptions(PlaceOptions.builder()
@@ -588,7 +553,6 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                             startActivityForResult(intent7, REQUEST_CODE_AUTOCOMPLETE);
                             break;
                         case 8:
-
                             Intent intent8 = new PlaceAutocomplete.IntentBuilder()
                                     .accessToken(Mapbox.getAccessToken() != null ? Mapbox.getAccessToken() : getString(R.string.access_token))
                                     .placeOptions(PlaceOptions.builder()
@@ -743,10 +707,6 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                 Toast.makeText(MapboxActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
-
     }
 
     private void setUpSource(@NonNull Style loadedMapStyle) {
@@ -833,22 +793,22 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
         mapboxMap.getStyle(new Style.OnStyleLoaded() {
             @Override
             public void onStyleLoaded(@NonNull Style style) {
-// Use Turf to calculate the Polygon's coordinates
+                // Use Turf to calculate the Polygon's coordinates
                 Polygon polygonArea = getTurfPolygon(circleCenter, circleRadius, circleUnit);
 
                 List<Point> pointList = TurfMeta.coordAll(polygonArea, false);
 
-// Update the source's GeoJSON to draw a new circle
+                // Update the source's GeoJSON to draw a new circle
                 GeoJsonSource polygonCircleSource = style.getSourceAs(TURF_CALCULATION_FILL_LAYER_GEOJSON_SOURCE_ID);
                 if (polygonCircleSource != null) {
                     polygonCircleSource.setGeoJson(Polygon.fromOuterInner(
                             LineString.fromLngLats(pointList)));
                 }
 
-// Show new places of interest (POIs)
+                // Show new places of interest (POIs)
                 filterPlacesOfInterest(polygonArea);
 
-// Adjust camera bounds to include entire circle
+                // Adjust camera bounds to include entire circle
                 List<LatLng> latLngList = new ArrayList<>(pointList.size());
                 for (Point singlePoint : pointList) {
                     latLngList.add(new LatLng((singlePoint.latitude()), singlePoint.longitude()));
@@ -899,7 +859,7 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
         mapboxMap.getStyle(new Style.OnStyleLoaded() {
             @Override
             public void onStyleLoaded(@NonNull Style style) {
-// Create and style a FillLayer based on information that will come from the Turf calculation
+                // Create and style a FillLayer based on information that will come from the Turf calculation
                 FillLayer fillLayer = new FillLayer(TURF_CALCULATION_FILL_LAYER_ID,
                         TURF_CALCULATION_FILL_LAYER_GEOJSON_SOURCE_ID);
                 fillLayer.setProperties(
@@ -912,42 +872,40 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
 
     private void getRoute(Point origin, Point destination) {
         NavigationRoute.builder(this)
-                .accessToken(Mapbox.getAccessToken())
-                .origin(origin)
-                .destination(destination)
-                .voiceUnits(measure)
-                .build()
-                .getRoute(new Callback<DirectionsResponse>() {
-                    @Override
-                    public void onResponse(Call<DirectionsResponse> call, Response<DirectionsResponse> response) {
-                        // You can get the generic HTTP info about the response
-                        Log.d(TAG, "Response code: " + response.code());
-                        if (response.body() == null) {
-                            Log.e(TAG, "No routes found, make sure you set the right user and access token.");
-                            return;
-                        } else if (response.body().routes().size() < 1) {
-                            Log.e(TAG, "No routes found");
-                            return;
-                        }
-
-
-                        currentRoute = response.body().routes().get(0);
-
-
-                        // Draw the route on the map
-                        if (navigationMapRoute != null) {
-                            navigationMapRoute.removeRoute();
-                        } else {
-                            navigationMapRoute = new NavigationMapRoute(null, mapView, mapboxMap, R.style.NavigationMapRoute);
-                        }
-                        navigationMapRoute.addRoute(currentRoute);
+            .accessToken(Mapbox.getAccessToken())
+            .origin(origin)
+            .destination(destination)
+            .voiceUnits(measure)
+            .build()
+            .getRoute(new Callback<DirectionsResponse>() {
+                @Override
+                public void onResponse(Call<DirectionsResponse> call, Response<DirectionsResponse> response) {
+                    // You can get the generic HTTP info about the response
+                    Log.d(TAG, "Response code: " + response.code());
+                    if (response.body() == null) {
+                        Log.e(TAG, "No routes found, make sure you set the right user and access token.");
+                        return;
+                    } else if (response.body().routes().size() < 1) {
+                        Log.e(TAG, "No routes found");
+                        return;
                     }
 
-                    @Override
-                    public void onFailure(Call<DirectionsResponse> call, Throwable throwable) {
-                        Log.e(TAG, "Error: " + throwable.getMessage());
+                    currentRoute = response.body().routes().get(0);
+
+                    // Draw the route on the map
+                    if (navigationMapRoute != null) {
+                        navigationMapRoute.removeRoute();
+                    } else {
+                        navigationMapRoute = new NavigationMapRoute(null, mapView, mapboxMap, R.style.NavigationMapRoute);
                     }
-                });
+                    navigationMapRoute.addRoute(currentRoute);
+                }
+
+                @Override
+                public void onFailure(Call<DirectionsResponse> call, Throwable throwable) {
+                    Log.e(TAG, "Error: " + throwable.getMessage());
+                }
+            });
     }
 
     @SuppressWarnings( {"MissingPermission"})

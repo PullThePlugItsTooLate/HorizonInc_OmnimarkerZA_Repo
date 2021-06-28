@@ -6,20 +6,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+//Widget imports
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
-
+//Firebase imports
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
+//Java utility imports
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +37,6 @@ public class FavouritePlacesActivity extends AppCompatActivity {
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference favouritePlacesRef = database.getReference(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,9 +48,6 @@ public class FavouritePlacesActivity extends AppCompatActivity {
 
         populateList();
 
-
-
-
         spin_favourites.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -59,7 +55,6 @@ public class FavouritePlacesActivity extends AppCompatActivity {
                 btn_remove_favourite.setBackgroundResource(R.drawable.custom_button);
                 btn_remove_favourite.setTextColor(getResources().getColor(R.color.quantum_black_text) );
                 favouritePlaceSelected = (FavouritePlace) adapterView.getSelectedItem();
-                //Toast.makeText(FavouritePlacesActivity.this, i + " int", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -97,7 +92,6 @@ public class FavouritePlacesActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(FavouritePlacesActivity.this, "Please select a place first", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
     }
@@ -118,7 +112,6 @@ public class FavouritePlacesActivity extends AppCompatActivity {
                 for (DataSnapshot dataInfo: snapshot.getChildren()){
                     lstFavouritePlaces.add(dataInfo.getValue(FavouritePlace.class));
                 }
-
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -129,6 +122,5 @@ public class FavouritePlacesActivity extends AppCompatActivity {
         ArrayAdapter<FavouritePlace> adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, lstFavouritePlaces);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin_favourites.setAdapter(adapter);
-
     }
 }

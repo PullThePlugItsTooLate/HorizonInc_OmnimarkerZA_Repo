@@ -22,18 +22,16 @@ public class SafetyInfoActivity extends AppCompatActivity {
         btnGeneralInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //open pop up
+                // Opens pop up
                 Intent i = new Intent(getApplicationContext(), SafetyInfoGeneralPopActivity.class );
                 startActivity(i);
             }
         });
 
-
-
         btnPhoneNumbers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //open pop up
+                // Opens pop up
                 Intent i = new Intent(getApplicationContext(), SafetyInfoNumbersPopActivity.class );
                 startActivity(i);
             }

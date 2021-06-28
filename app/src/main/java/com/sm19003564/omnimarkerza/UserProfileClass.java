@@ -12,6 +12,7 @@ public class UserProfileClass {
     }
 
     public UserProfileClass() {
+
     }
 
     public String getUserID() {
@@ -37,6 +38,4 @@ public class UserProfileClass {
     public void setPassword(String password) {
         this.password = password;
     }
-
-
 }

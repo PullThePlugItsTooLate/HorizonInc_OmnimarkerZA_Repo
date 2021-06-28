@@ -1,7 +1,6 @@
 package com.sm19003564.omnimarkerza;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -16,13 +15,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class ProfileChangeUsernamePopActivity extends Activity {
-    //declare
+    // Declaration
     Button changeEmailButton;
     TextView currentEmailTV;
     EditText newEmailET;
@@ -34,14 +31,13 @@ public class ProfileChangeUsernamePopActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_change_username_pop);
 
-        //Initialize
+        // Initialize
         changeEmailButton = (Button) findViewById(R.id.buttonChangeEmail);
         currentEmailTV = (TextView) findViewById(R.id.textViewCurrentEmail);
         newEmailET = (EditText) findViewById(R.id.editTextTextEmailAddress);
         mFirebaseAuth = FirebaseAuth.getInstance();
 
-
-        //Layout settings
+        // Layout settings
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
@@ -56,16 +52,16 @@ public class ProfileChangeUsernamePopActivity extends Activity {
         params.y = -20;
         getWindow().setAttributes(params);
 
-        //get email
+        // Get email
         currentEmail = mFirebaseAuth.getCurrentUser().getEmail();
 
-        //set textview
+        // Set textview
         currentEmailTV.setText(currentEmail);
 
         changeEmailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //check if text boxes are empty
+                // Check if text boxes are empty
                 if ((newEmailET.getText().toString().trim().length() == 0) ) {
                     Toast.makeText(getApplicationContext(), "Text boxes cannot be empty ", Toast.LENGTH_SHORT).show();
                     return;
@@ -73,26 +69,22 @@ public class ProfileChangeUsernamePopActivity extends Activity {
                 newEmail = newEmailET.getText().toString();
 
                 FirebaseUser user = mFirebaseAuth.getCurrentUser();
-                //update email
+                // Update email
                 user.updateEmail(newEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful())
                         {
                             Toast.makeText(getApplicationContext(), "Email changed to " + newEmail, Toast.LENGTH_SHORT).show();
-                            //get email from firebase
+                            // Get email from firebase
                             currentEmail = mFirebaseAuth.getCurrentUser().getEmail();
 
-                            //set textview to new email
+                            // Set textview to new email
                             currentEmailTV.setText(currentEmail);
                         }
                     }
                 });
-
-
-
             }
-
         });
     }
 }
