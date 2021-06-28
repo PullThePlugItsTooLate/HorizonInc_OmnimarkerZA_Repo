@@ -29,7 +29,6 @@
         android:background="@drawable/custom_button"
         android:fontFamily="@font/montserrat_bold"
         android:text="Change Email"
-
         android:textColor="#333333"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -77,4 +76,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.935" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

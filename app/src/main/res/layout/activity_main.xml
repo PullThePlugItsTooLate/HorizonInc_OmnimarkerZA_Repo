@@ -27,7 +27,6 @@
         android:fontFamily="@font/montserrat_bold"
         android:shadowColor="#000000"
         android:shadowDx="5"
-
         android:shadowDy="4"
         android:shadowRadius="5"
         android:text="FAVOURITES"
@@ -305,6 +304,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.447"
         app:srcCompat="@drawable/weathericon" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

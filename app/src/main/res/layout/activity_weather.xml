@@ -8,7 +8,6 @@
     android:background="@drawable/pop_bg"
     tools:context=".WeatherActivity">
 
-
     <TextView
         android:id="@+id/tvResult"
         android:layout_width="333dp"
@@ -96,6 +95,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.037"
         app:srcCompat="@drawable/weathericon" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,7 +7,6 @@
     android:background="@drawable/pop_bg"
     tools:context=".LoginActivity">
 
-
     <EditText
         android:id="@+id/etEmail"
         android:layout_width="293dp"
@@ -16,7 +15,6 @@
         android:drawableStart="@drawable/ic_email"
         android:drawablePadding="12dp"
         android:ems="10"
-
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:paddingStart="12dp"
@@ -45,7 +43,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.543" />
-
 
     <Button
         android:id="@+id/btnSignIn"
@@ -118,6 +115,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.268" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
