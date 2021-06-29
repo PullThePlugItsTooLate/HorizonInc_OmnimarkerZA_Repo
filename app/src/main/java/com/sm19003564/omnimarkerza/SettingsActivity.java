@@ -3,6 +3,7 @@ package com.sm19003564.omnimarkerza;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 // Widget imports
@@ -79,6 +80,21 @@ public class SettingsActivity extends AppCompatActivity {
 
                 settingsRef.child("SettingsData").push().setValue(settings);
                 Toast.makeText(SettingsActivity.this, "Your settings have been saved", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btnAbout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(SettingsActivity.this, "This Landmark Android Application has been created by Horizon Inc. which is composed of: Shai-lin Lalu, Zahra Carrim, Rayhaan Nakooda, Suvashin Moodliar. OmnimarkerZA was created for OPSC7312 POE 2021", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        btnHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(SettingsActivity.this, HelpActivity.class);
+                startActivity(i);
             }
         });
     }
