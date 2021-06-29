@@ -211,6 +211,19 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        /**
+         *
+         *
+         * -----------------------------CODE-ATTRIBUTION---------------------------------
+         *  Available at: https://docs.mapbox.com/android/plugins/examples/place-picker/
+         *  Author: Mapbox
+         *  Year: N/A
+         *  Year used: 2021
+         *  Date used: 25/06
+         * -------------------------------------------------------------------------------
+         */
+
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_CANCELED) {
 
@@ -257,7 +270,24 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                     }
                 });
             }
+
+            /**
+             * ------------------------------------------------------------------------------
+             * -------------------------CODE ATTRIBUTION ENDS HERE---------------------------
+             */
         }
+
+        /**
+         *
+         *
+         * -----------------------------CODE-ATTRIBUTION---------------------------------
+         *  Available at: https://docs.mapbox.com/help/tutorials/local-search-geocoding-api/
+         *  Author: Mapbox
+         *  Year: N/A
+         *  Year used: 2021
+         *  Date used: 25/06
+         * -------------------------------------------------------------------------------
+         */
 
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_AUTOCOMPLETE) {
 
@@ -285,6 +315,11 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
                 }
             }
         }
+
+        /**
+         * ------------------------------------------------------------------------------
+         * -------------------------CODE ATTRIBUTION ENDS HERE---------------------------
+         */
     }
 
     @Override
@@ -374,6 +409,18 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
     }
 
     /**
+     *
+     *
+     * -----------------------------CODE-ATTRIBUTION---------------------------------
+     *  Available at: https://docs.mapbox.com/android/java/examples/turf-circle-poi-within-filter/
+     *  Author: Mapbox
+     *  Year: N/A
+     *  Year used: 2021
+     *  Date used: 25/06
+     * -------------------------------------------------------------------------------
+     */
+
+    /**
      * Remove other types of label layers from the style in order to highlight the POI label layer.
      */
     private void hideLayers() {
@@ -415,6 +462,11 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
         Point lcp = Point.fromLngLat(locationComponent.getLastKnownLocation().getLongitude(), locationComponent.getLastKnownLocation().getLatitude());
         drawPolygonCircle(lastClickPoint != null ? lastClickPoint : lcp);
     }
+
+    /**
+     * ------------------------------------------------------------------------------
+     * -------------------------CODE ATTRIBUTION ENDS HERE---------------------------
+     */
 
     private void initDistanceUnitSpinner() {
         Spinner spinner = findViewById(R.id.circle_units_spinner);
@@ -784,6 +836,18 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
     }
 
     /**
+     *
+     *
+     * -----------------------------CODE-ATTRIBUTION---------------------------------
+     *  Available at: https://docs.mapbox.com/android/java/examples/turf-circle-poi-within-filter/
+     *  Author: Mapbox
+     *  Year: N/A
+     *  Year used: 2021
+     *  Date used: 25/06
+     * -------------------------------------------------------------------------------
+     */
+
+    /**
      * Update the {@link FillLayer} based on the GeoJSON retrieved via
      * {@link this#getTurfPolygon(Point, double, String)}.
      *
@@ -869,6 +933,11 @@ public class MapboxActivity extends AppCompatActivity implements OnMapReadyCallb
             }
         });
     }
+
+    /**
+     * ------------------------------------------------------------------------------
+     * -------------------------CODE ATTRIBUTION ENDS HERE---------------------------
+     */
 
     private void getRoute(Point origin, Point destination) {
         NavigationRoute.builder(this)
