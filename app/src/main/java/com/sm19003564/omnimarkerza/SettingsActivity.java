@@ -38,6 +38,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        // Initialization of objects
         mFirebaseAuth = FirebaseAuth.getInstance();
         btnAbout = findViewById(R.id.btnAbout);
         btnHelp = findViewById(R.id.btnHelp);
@@ -47,12 +48,16 @@ public class SettingsActivity extends AppCompatActivity {
 
         settings = new Settings(true, false);
 
+        // Getting settings data from firebase
         settingsRef.child("SettingsData").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataInfo: snapshot.getChildren()){
+                    // Retrieves the latest user setting
                     settings = dataInfo.getValue(Settings.class);
                 }
+
+                // Presets the setting control so that the user knows what setting is currently active
                 if (settings.isMetric()){
                     rbMetric.setChecked(true);
                 } else {
@@ -63,13 +68,18 @@ public class SettingsActivity extends AppCompatActivity {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+
+                // Displays an error in case of database error
                 Toast.makeText(SettingsActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
+        // Saves the users selected setting to firebase
         btnSaveChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                // Extracts the user's chosen setting
                 if (rbMetric.isChecked()){
                     settings = new Settings(true, false);
                 } else {
@@ -78,11 +88,13 @@ public class SettingsActivity extends AppCompatActivity {
                     }
                 }
 
+                // Pushes the user's setting to firebase
                 settingsRef.child("SettingsData").push().setValue(settings);
                 Toast.makeText(SettingsActivity.this, "Your settings have been saved", Toast.LENGTH_SHORT).show();
             }
         });
 
+        // Displays a simple toast message
         btnAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,6 +102,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        // Opens the help activity when the user clicks on the help button
         btnHelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

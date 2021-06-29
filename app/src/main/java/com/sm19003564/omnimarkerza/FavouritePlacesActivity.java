@@ -6,34 +6,35 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-//Widget imports
+// Widget imports
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
-//Firebase imports
+// Firebase imports
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-//Java utility imports
+// Java utility imports
 import java.util.ArrayList;
 import java.util.List;
 
 public class FavouritePlacesActivity extends AppCompatActivity {
 
+    // Object declaration
     private Button btn_remove_favourite;
 
-    //Spinner
+    // Spinner
     private Spinner spin_favourites;
     private FavouritePlace favouritePlaceSelected;
     private List<FavouritePlace> lstFavouritePlaces;
     private ArrayAdapter<FavouritePlace> adapter;
 
-    //Pull favourite places data
+    // Pull favourite places data
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference favouritePlacesRef = database.getReference(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
@@ -42,15 +43,20 @@ public class FavouritePlacesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite_places);
 
+        // Object initialization
         btn_remove_favourite = findViewById(R.id.remove_favourite_button);
         spin_favourites = findViewById(R.id.favourites_spinner);
         lstFavouritePlaces = new ArrayList<>();
 
+        // Method called to populate drop down
         populateList();
 
+        // Set on item select listener for spinner
         spin_favourites.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                // If an item is selected then go ahead and enable the button to remove the item
                 btn_remove_favourite.setEnabled(true);
                 btn_remove_favourite.setBackgroundResource(R.drawable.custom_button);
                 btn_remove_favourite.setTextColor(getResources().getColor(R.color.quantum_black_text) );
@@ -63,6 +69,7 @@ public class FavouritePlacesActivity extends AppCompatActivity {
             }
         });
 
+        // Set the on click listener for the remove button
         btn_remove_favourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

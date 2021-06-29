@@ -53,6 +53,8 @@
     <string name="help">Help</string>
     <string name="about">About</string>
     <string name="save_changes">Save Changes</string>
+    <string name="help_guide_string">Start from the Main Menu\n\nHow to add a Favourite place:\nTap on the Landmarks icon. Tap on the marker button with the little plus sign, found top right under the search button. Tap the green check mark to add place to Favourites\n\nHow to View Favourites:\nTap on Landmarks icon. Tap on Search button. Your Favourites will be displayed in blue, tap one of your listed Favourite Places\n\nHow to Manage Favourites:\nTap on Favourites icon. Use drop down to select existing favourite. Remove the selected favourite by tapping on the Remove Button</string>
+    <string name="help_guide">HELP</string>
 
     <!-- Within circle filter-->
     <string-array name="within_poi_filter_circle_distance_units_array">
