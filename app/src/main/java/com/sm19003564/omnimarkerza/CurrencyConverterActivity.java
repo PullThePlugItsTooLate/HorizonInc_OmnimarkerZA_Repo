@@ -1,9 +1,7 @@
 package com.sm19003564.omnimarkerza;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-//Widget imports
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,15 +9,20 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.gson.JsonObject;
 import com.sm19003564.omnimarkerza.Retrofit.RetrofitBuilder;
 import com.sm19003564.omnimarkerza.Retrofit.RetrofitInterface;
 
 import java.text.DecimalFormat;
-//Retrofit imports
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+//Widget imports
+//Retrofit imports
 
 public class CurrencyConverterActivity extends AppCompatActivity {
     //Variable declaration
@@ -100,3 +103,27 @@ public class CurrencyConverterActivity extends AppCompatActivity {
         });
     }
 }
+/**
+ *
+ *
+ * -----------------------------CODE-ATTRIBUTION---------------------------------
+ *  Resource Type: Web Article
+ *  Available at: https://demonuts.com/android-spinner-searchable/
+ *  Author: Demonuts editorial team
+ *  Year: N/A
+ *  Year used: 2021
+ *  Date used: 20/06
+ * -------------------------------------------------------------------------------
+ */
+/**
+ *
+ *
+ * -----------------------------CODE-ATTRIBUTION---------------------------------
+ *  Resource Type: Youtube Video
+ *  Available at: https://www.youtube.com/watch?v=lKug3iqKujM&t=910s
+ *  Author: Apprials https://www.youtube.com/channel/UCSprcv_Ih0DadqgXsuQ0Wig
+ *  Year: 2020
+ *  Year used: 2021
+ *  Date used: 24/05
+ * -------------------------------------------------------------------------------
+ */

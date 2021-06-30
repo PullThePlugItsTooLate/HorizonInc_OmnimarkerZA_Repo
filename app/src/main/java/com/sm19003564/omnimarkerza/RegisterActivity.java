@@ -1,26 +1,27 @@
 package com.sm19003564.omnimarkerza;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-// Widget imports
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-// Firebase imports
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.SignInMethodQueryResult;
 
 import org.jetbrains.annotations.NotNull;
+
+// Widget imports
+// Firebase imports
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -83,6 +84,7 @@ public class RegisterActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             // Check if user email exists
+
                             mFirebaseAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
                                 @Override
                                 public void onComplete(@NonNull @NotNull Task<SignInMethodQueryResult> task) {
@@ -109,3 +111,16 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 }
+
+/**
+ *
+ *
+ * -----------------------------CODE-ATTRIBUTION---------------------------------
+ *  Resource Type: Online article
+ *  Available at: https://newbedev.com/how-to-check-user-email-already-exists-in-firebase-using-android-studio
+ *  Author: Newbedev
+ *  Year: N/A
+ *  Year used: 2021
+ *  Date used: 19/06
+ * -------------------------------------------------------------------------------
+ */

@@ -1,24 +1,25 @@
 package com.sm19003564.omnimarkerza;
 
-import androidx.annotation.NonNull;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-// Text imports
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.DisplayMetrics;
-// View imports
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import static android.content.Intent.ACTION_DIAL;
+
+// Text imports
+// View imports
 
 public class SafetyInfoNumbersPopActivity extends Activity {
 
@@ -103,3 +104,27 @@ public class SafetyInfoNumbersPopActivity extends Activity {
         number3.setMovementMethod(LinkMovementMethod.getInstance());
     }
 }
+
+/**
+ *
+ *
+ * -----------------------------CODE-ATTRIBUTION---------------------------------
+ *  Resource Type: Youtube Video
+ *  Available at: https://www.youtube.com/watch?v=eX-TdY6bLdg
+ *  Author: Angga Risky
+ *  Year: 2017
+ *  Year used: 2021
+ *  Date used: 30/05
+ * -------------------------------------------------------------------------------
+ */
+/**
+ *
+ * -----------------------------CODE-ATTRIBUTION---------------------------------
+ *  Resource Type: Youtube Video
+ *  Available at: https://www.youtube.com/watch?v=0EQDFehT7S8
+ *  Author: Coding Demos
+ *  Year: 2020
+ *  Year used: 2021
+ *  Date used: 5/06
+ * -------------------------------------------------------------------------------
+ */

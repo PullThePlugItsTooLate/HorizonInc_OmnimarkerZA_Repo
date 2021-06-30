@@ -1,7 +1,5 @@
 package com.sm19003564.omnimarkerza;
 
-import androidx.annotation.NonNull;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -12,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -88,3 +88,28 @@ public class ProfileChangeUsernamePopActivity extends Activity {
         });
     }
 }
+
+/**
+ *
+ *
+ * -----------------------------CODE-ATTRIBUTION---------------------------------
+ *  Resource Type: Firebase Docs
+ *  Available at: https://firebase.google.com/docs/auth/web/manage-users
+ *  Author: Google
+ *  Year: N/A
+ *  Year used: 2021
+ *  Date used: 20/05
+ * -------------------------------------------------------------------------------
+ */
+/**
+ *
+ *
+ * -----------------------------CODE-ATTRIBUTION---------------------------------
+ *  Resource Type: Youtube Video
+ *  Available at: https://www.youtube.com/watch?v=eX-TdY6bLdg
+ *  Author: Angga Risky
+ *  Year: 2017
+ *  Year used: 2021
+ *  Date used: 30/05
+ * -------------------------------------------------------------------------------
+ */

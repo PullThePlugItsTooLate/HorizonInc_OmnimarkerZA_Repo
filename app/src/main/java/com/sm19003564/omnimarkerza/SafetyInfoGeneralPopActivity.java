@@ -29,3 +29,16 @@ public class SafetyInfoGeneralPopActivity extends Activity {
         getWindow().setAttributes(params);
     }
 }
+
+/**
+ *
+ *
+ * -----------------------------CODE-ATTRIBUTION---------------------------------
+ *  Resource Type: Youtube Video
+ *  Available at: https://www.youtube.com/watch?v=eX-TdY6bLdg
+ *  Author: Angga Risky
+ *  Year: 2017
+ *  Year used: 2021
+ *  Date used: 30/05
+ * -------------------------------------------------------------------------------
+ */
