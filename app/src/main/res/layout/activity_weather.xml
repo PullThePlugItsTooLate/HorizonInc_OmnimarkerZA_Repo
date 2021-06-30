@@ -10,8 +10,8 @@
 
     <TextView
         android:id="@+id/tvResult"
-        android:layout_width="333dp"
-        android:layout_height="331dp"
+        android:layout_width="295dp"
+        android:layout_height="292dp"
         android:layout_marginTop="52dp"
         android:textColor="#000000"
         android:textSize="14sp"
@@ -20,7 +20,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.954" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/btnGet"
